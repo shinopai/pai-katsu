@@ -1,0 +1,98 @@
+@use "../modules/mixins" as m;
+@use "../modules/placeholders";
+
+.auth {
+    width: min(100%, 360px);
+    min-height: 100vh;
+    border-radius: 6px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    padding-bottom: 24px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+/* ===== heading ===== */
+.auth__heading {
+    @include m.font-set(18) {
+        font-weight: 600;
+    }
+    padding: 0.9em 0;
+    text-align: center;
+    color: #fff;
+    background: linear-gradient(90deg, #6dd5fa 0%, #2980b9 100%);
+    border-radius: 6px 6px 0 0;
+}
+
+/* ===== form ===== */
+.auth__form {
+    padding: 24px;
+}
+
+.auth__form-group {
+    margin-bottom: 16px;
+}
+
+.auth__form-label {
+    display: block;
+    @include m.font-set(12);
+    margin-bottom: 0.5em;
+    font-size: 12px;
+    color: #555;
+}
+
+.auth__form-input {
+    @include m.font-set(14);
+    width: 100%;
+    min-height: 36px;
+    padding: 0 0.8em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.auth__form-input:focus {
+    outline: none;
+    border-color: #2980b9;
+    box-shadow: 0 0 0 1px rgba(41, 128, 185, 0.3);
+}
+
+/* ===== error ===== */
+.auth__error-message {
+    @include m.font-set(12);
+    margin-top: 0.34em;
+    color: #d9534f;
+}
+
+/* ===== button ===== */
+.auth__form-button {
+    @include m.font-set(14);
+    display: block;
+    width: min(100%, 120px);
+    min-height: 36px;
+    background-color: #2f55d4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 1.2em auto 0;
+}
+
+.auth__form-button:hover {
+    background-color: #2445aa;
+}
+
+/* ===== text & link ===== */
+.auth__text {
+    margin-top: 8px;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+}
+
+.auth__link {
+    color: #2f55d4;
+    text-decoration: none;
+}
+
+.auth__link:hover {
+    text-decoration: underline;
+}

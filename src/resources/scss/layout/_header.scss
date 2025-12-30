@@ -1,0 +1,63 @@
+@use "../modules/mixins" as m;
+@use "../modules/placeholders";
+
+/* ヘッダー */
+.header {
+    @extend %bg-red;
+}
+.header__inner {
+    justify-content: space-between;
+    align-items: center;
+    min-height: 56px;
+}
+.header__title {
+    @include m.font-set(18) {
+        font-weight: 600;
+    }
+    color: #fff;
+    // font awesome icon
+    &::before {
+        font-family: "Font Awesome 7 Free";
+        font-weight: 900;
+        content: "\f185";
+    }
+}
+.header__nav {
+    column-gap: 20px;
+}
+.header__nav-link {
+    @include m.font-set(14) {
+    }
+    color: #fff;
+    // font awesome icon
+    &::before {
+        font-family: "Font Awesome 7 Free";
+        font-weight: 900;
+        margin-right: 0.4em;
+    }
+}
+.header__nav-link--login {
+    &::before {
+        content: "\f2f6";
+    }
+}
+.header__nav-link--register {
+    &::before {
+        content: "\f234";
+    }
+}
+.header__nav-link--zoom {
+    &::before {
+        content: "\f2d0";
+    }
+}
+.header__nav-link--post {
+    &::before {
+        content: "\f044";
+    }
+}
+.header__nav-link--guest {
+    &::before {
+        content: "\f406";
+    }
+}

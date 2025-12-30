@@ -8,4 +8,10 @@ RUN apt-get update && apt-get install -y \
 # Composerインストール
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Node.js 20 を入れる
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+ && apt-get install -y nodejs
+
+RUN node -v && npm -v
+
 WORKDIR /var/www
