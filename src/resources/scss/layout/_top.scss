@@ -1,0 +1,318 @@
+@use "../modules/mixins" as m;
+@use "../modules/placeholders";
+@use "../modules/variables" as v;
+
+/* top layout */
+.top {
+    width: min(100%, 650px);
+    margin: 0 auto;
+}
+.top__content {
+    justify-content: space-between;
+}
+
+/* sidebar */
+.top__sidebar {
+    width: 35%;
+    & > * {
+        border-radius: 3px;
+        overflow: hidden;
+    }
+    & > *:not(:first-child) {
+        margin-top: 20px;
+    }
+}
+.top__sidebar-zoom {
+    @extend %bg-blue-shadow;
+    min-height: 60px;
+    text-align: center;
+    padding-top: 5px;
+}
+.top__sidebar-zoom-link {
+    @include m.font-set(16);
+    color: #fff;
+    position: relative;
+    /* font awesome video icon */
+    &::before {
+        content: "\f03d"; /* fa-video */
+        font-family: "Font Awesome 7 Free";
+        font-weight: 900;
+        position: absolute;
+        display: inline-block;
+        font-size: 1.2em;
+        color: #fff;
+        bottom: -1.3em;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+}
+.top__sidebar-tags {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+.top__sidebar-tags-header {
+    background-color: v.$color-gray;
+    min-height: 35px;
+    @include m.centering;
+}
+.top__sidebar-tags-title {
+    @include m.font-set(13);
+    padding-left: 0.6em;
+    position: relative;
+    &::before {
+        content: "\f02c"; /* fa-tags */
+        font-family: "Font Awesome 7 Free";
+        font-weight: 900;
+        font-size: 0.9em;
+        position: absolute;
+        left: -0.7em;
+        top: 0.2em;
+    }
+}
+.top__sidebar-tags-list {
+    padding: 15px;
+}
+.top__sidebar-tags-item {
+    padding-left: 30px;
+    & + & {
+        margin-top: 7px;
+    }
+}
+.top__sidebar-tags-link {
+    @include m.font-set(12);
+    color: v.$color-blue;
+}
+.top__sidebar-ranking {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+.top__sidebar-ranking-header {
+    background-color: v.$color-gray;
+    min-height: 35px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 20px;
+    padding-right: 7px;
+}
+.top__sidebar-ranking-title {
+    @include m.font-set(13);
+    padding-left: 1.6em;
+    position: relative;
+    &::before {
+        content: "\f521"; /* fa-trophy */
+        font-family: "Font Awesome 7 Free";
+        font-weight: 900;
+        font-size: 1.2em;
+        position: absolute;
+        left: 0;
+        top: -0.15em;
+        color: #f5b301;
+    }
+}
+.top__sidebar-ranking-month {
+    @include m.font-set(12, 600);
+    color: #fff;
+    padding: 2px 4px;
+    border-radius: 3px;
+    @extend %bg-red;
+}
+.top__sidebar-ranking-list {
+    padding: 15px;
+}
+.top__sidebar-ranking-item {
+    @include m.font-set(12);
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #333;
+    & + & {
+        margin-top: 7px;
+    }
+}
+.top__sidebar-ranking-name {
+    color: v.$color-blue;
+}
+.top__sidebar-ranking-number {
+    font-weight: 600;
+}
+
+/* post content */
+.top__posts {
+    width: 55%;
+    & > *:not(:first-child) {
+        margin-top: 20px;
+    }
+}
+.top__post {
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 16px 16px 0 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    @include m.font-set(13);
+    &:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+}
+.top__post-header {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.top__post-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.top__post-user-inner {
+    justify-content: flex-start;
+    column-gap: 15px;
+}
+.top__post-user-icon {
+    width: 40px;
+    border-radius: 100vh;
+}
+.top__post-user-name {
+    @include m.font-set(11, bold);
+}
+.top__post-date {
+    @include m.font-set(12);
+    margin-left: 1em;
+    color: #888;
+}
+.top__post-goal {
+    @include m.font-set(12);
+    padding-left: 1.2em;
+    position: relative;
+    &::before {
+        content: "\f017"; /* clock */
+        font-family: "Font Awesome 7 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 0.9em;
+        color: v.$color-blue;
+    }
+}
+.top__post-goal-text {
+    color: v.$color-blue;
+}
+.top__post-achievement {
+    padding: 4px 20px;
+    border-radius: 3px;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    @extend %bg-red;
+}
+.top__post-achievement-label {
+    display: block;
+    @include m.font-set(10);
+    color: #fff;
+}
+
+.top__post-achievement-days {
+    @include m.font-set(11);
+    color: #fff;
+    display: block;
+}
+
+.top__post-achievement-number {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #fff;
+}
+.top__post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.top__post-tag {
+    padding: 0.3em;
+    border: 1px solid #4db6ac;
+    border-radius: 3px;
+    color: #4db6ac;
+    @include m.font-set(11, 600) {
+        line-height: 1.2;
+    }
+}
+.top__post-body {
+    padding: 10px 0;
+}
+.top__post-text {
+    @include m.font-set(14);
+    white-space: pre-wrap;
+}
+.top__post-footer {
+    @include m.font-set(12);
+    justify-content: flex-end;
+    gap: 16px;
+    position: relative;
+    padding: 0.6em 0;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -16px;
+        right: -16px;
+        height: 1px;
+        background-color: #f7f7f7;
+    }
+}
+.top__post-comment {
+    position: relative;
+    padding-left: 1.4em;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    &::before {
+        content: "\f075";
+        font-family: "Font Awesome 7 Free";
+        font-weight: 400;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1em;
+        color: #3b82f6;
+    }
+}
+.top__post-like {
+    position: relative;
+    padding-left: 1.4em;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    &::before {
+        content: "\f004";
+        font-family: "Font Awesome 7 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1em;
+        color: #333;
+    }
+}
+.top__new-post {
+    width: 80px;
+    height: 80px;
+    position: fixed;
+    right: 0.6em;
+    bottom: 1.7em;
+    flex-direction: column-reverse;
+    align-items: center;
+    padding: 14px 18px;
+    border-radius: 100vh;
+    @extend %bg-red;
+    color: #ffffff;
+    @include m.font-set(14, 600);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 100;
+}
+.top__new-post-icon {
+    font-size: 1.8em;
+}

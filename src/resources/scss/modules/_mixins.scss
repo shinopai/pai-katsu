@@ -1,7 +1,8 @@
 /* フォント指定 */
-@mixin font-set($font_size) {
+@mixin font-set($font_size, $font_weight: normal) {
     font-size: $font_size + px;
     font-size: ($font_size / 16) + rem;
+    font-weight: $font_weight;
     @content;
 }
 
