@@ -4,7 +4,7 @@
   <div class="auth">
     <h2 class="auth__heading">新規登録</h2>
 
-    <form action="{{ route('register') }}" method="POST" class="auth__form" novalidate>
+    <form action="{{ route('register') }}" method="POST" class="auth__form" enctype="multipart/form-data" novalidate>
       @csrf
 
       <div class="auth__form-group">
@@ -42,6 +42,19 @@
           パスワード（確認）
         </label>
         <input id="password_confirmation" name="password_confirmation" type="password" class="auth__form-input">
+      </div>
+
+      <div class="auth__form-group">
+        <div class="auth__form-input-wrap--file">
+          <input type="file" name="icon" id="icon" class="auth__form-input--file">
+          <label for="icon" class="auth__form-label--file flex">
+            <i class="fa-solid fa-paperclip auth__form-input-icon"></i>
+            <span class="auth__form-text">ファイルを選択</span>
+          </label>
+        </div>
+        @error('icon')
+          <p class="auth__error-message">{{ $message }}</p>
+        @enderror
       </div>
 
       <button type="submit" class="auth__form-button">

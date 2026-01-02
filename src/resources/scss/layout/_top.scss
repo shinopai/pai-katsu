@@ -303,6 +303,7 @@
     right: 0.6em;
     bottom: 1.7em;
     flex-direction: column-reverse;
+    justify-content: center;
     align-items: center;
     padding: 14px 18px;
     border-radius: 100vh;
@@ -315,4 +316,8 @@
 }
 .top__new-post-icon {
     font-size: 1.8em;
+}
+.top__new-post-text {
+    @include m.font-set(11);
+    color: #fff;
 }

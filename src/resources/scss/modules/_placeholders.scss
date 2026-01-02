@@ -9,6 +9,11 @@
     );
 }
 
+/* basic background blue */
+%bg-blue {
+    background: linear-gradient(90deg, #6fd3ff 0%, #3a8de3 50%, #2b5fc0 100%);
+}
+
 /* basic background blue shadow type */
 %bg-blue-shadow {
     background: linear-gradient(90deg, #6fd3ff 0%, #3a8de3 50%, #2b5fc0 100%);

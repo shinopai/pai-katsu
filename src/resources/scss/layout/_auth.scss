@@ -48,11 +48,53 @@
     border: 1px solid #ccc;
     border-radius: 4px;
 }
-
 .auth__form-input:focus {
     outline: none;
     border-color: #2980b9;
     box-shadow: 0 0 0 1px rgba(41, 128, 185, 0.3);
+}
+/* ===== file input ===== */
+/* ラッパー */
+.auth__form-input-wrap--file {
+    display: inline-block;
+}
+
+/* file input 本体は非表示 */
+.auth__form-input--file {
+    display: none;
+}
+
+/* ボタン部分（label） */
+.auth__form-label--file {
+    @include m.font-set(12, 600);
+    align-items: center;
+    gap: 0.2em;
+    padding: 0.8em 1.5em;
+    border-radius: 6px;
+    background-color: #4a63d6;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* active（押し込み感） */
+.auth__form-label--file:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* クリップアイコン */
+.auth__form-input-icon {
+    font-size: 1.1em;
+    color: inherit;
+}
+
+/* テキスト */
+.auth__form-text {
+    color: inherit;
+    white-space: nowrap;
 }
 
 /* ===== error ===== */

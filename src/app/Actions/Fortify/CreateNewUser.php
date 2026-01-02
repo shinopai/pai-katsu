@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -29,12 +30,20 @@ class CreateNewUser implements CreatesNewUsers
                 Rule::unique(User::class),
             ],
             'password' => $this->passwordRules(),
+            'icon' => ['image', 'max:2048']
         ])->validate();
+
+        $iconPath = null;
+
+        if (isset($input['icon']) && $input['icon'] instanceof UploadedFile) {
+            $iconPath = $input['icon']->store('icons', 'public');
+        }
 
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
+            'icon' => $iconPath
         ]);
     }
 }

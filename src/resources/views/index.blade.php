@@ -97,6 +97,8 @@
             <header class="top__post-header flex">
               <div class="top__post-user flex">
                 <div class="top__post-user-inner flex">
+                  {{-- <img src="{{ $user->icon ? asset('storage/' . $user->icon) : asset('images/icon_user_01_dummy.webp') }}"
+                    alt=""> --}}
                   <img src="{{ asset('images/icon_user_01_dummy.webp') }}" alt="" class="top__post-user-icon">
                   <div class="top__post-user-info">
                     <span class="top__post-user-name">sora</span>
