@@ -23,13 +23,6 @@ class StorePostRequest extends FormRequest
     {
         return [
             'detail' => ['required', 'max:1000'],
-            'wakeup_time' => [
-                'required',
-                'date_format:H:i',
-                'after_or_equal:04:00',
-                'before_or_equal:10:00'
-            ],
-
             // タグは文字列
             'tags'   => ['nullable', 'string', 'max:255']
         ];

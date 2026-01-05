@@ -28,15 +28,6 @@
             placeholder="例：6時に起床してランニングと読書をしました" required>{{ old('detail') }}</textarea>
         </div>
 
-        {{-- 起床時間 --}}
-        <div class="post-create__group">
-          <label for="wakeup_time" class="post-create__label">
-            起床時間
-          </label>
-          <input type="time" name="wakeup_time" id="wakeup_time" class="post-create__input" min="04:00"
-            max="10:00" value="{{ old('wakeup_time') }}" required>
-        </div>
-
         {{-- タグ入力（想定） --}}
         <div class="post-create__group">
           <label for="tags" class="post-create__label">

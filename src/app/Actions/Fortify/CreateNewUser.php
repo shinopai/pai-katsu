@@ -30,7 +30,13 @@ class CreateNewUser implements CreatesNewUsers
                 Rule::unique(User::class),
             ],
             'password' => $this->passwordRules(),
-            'icon' => ['image', 'max:2048']
+            'icon' => ['image', 'max:2048'],
+            'wakeup_time' => [
+                'required',
+                'date_format:H:i',
+                'after_or_equal:04:00',
+                'before_or_equal:10:00'
+            ],
         ])->validate();
 
         $iconPath = null;
@@ -43,7 +49,8 @@ class CreateNewUser implements CreatesNewUsers
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            'icon' => $iconPath
+            'icon' => $iconPath,
+            'wakeup_time' => $input['wakeup_time']
         ]);
     }
 }

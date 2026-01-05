@@ -36,9 +36,13 @@
 .auth__form-label {
     display: block;
     @include m.font-set(12);
-    margin-bottom: 0.5em;
+    margin-bottom: 0.2em;
     font-size: 12px;
     color: #555;
+}
+.auth__form-text--warning {
+    @include m.font-set(11);
+    color: v.$color-red;
 }
 
 .auth__form-input {

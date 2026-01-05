@@ -20,8 +20,7 @@ class PostController extends Controller
     {
         $post = Post::create([
             'user_id'     => Auth::id(),
-            'detail'      => $request->detail,
-            'wakeup_time' => $request->wakeup_time,
+            'detail'      => $request->detail
         ]);
 
         if ($request->filled('tags')) {

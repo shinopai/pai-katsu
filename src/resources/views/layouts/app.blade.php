@@ -6,10 +6,7 @@
   <title>@yield('title', 'PaiKatsu')</title>
 
   {{-- include css、js --}}
-  @vite([
-      'resources/scss/app.scss',
-      'resources/js/app.js',
-  ])
+  @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 
   {{-- google fonts --}}
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +26,11 @@
   {{-- フラッシュエラーメッセージ  --}}
   @if (session('error'))
     <p class="flash-message flash-message--error">{{ session('error') }}</p>
+  @endif
+
+  {{-- フラッシュサクセスメッセージ  --}}
+  @if (session('success'))
+    <p class="flash-message flash-message--success">{{ session('success') }}</p>
   @endif
 
   {{-- メインコンテンツ --}}

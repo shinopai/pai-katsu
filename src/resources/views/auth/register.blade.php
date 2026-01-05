@@ -7,6 +7,7 @@
     <form action="{{ route('register') }}" method="POST" class="auth__form" enctype="multipart/form-data" novalidate>
       @csrf
 
+      <!-- ユーザー名 -->
       <div class="auth__form-group">
         <label for="name" class="auth__form-label">
           お名前
@@ -17,6 +18,7 @@
         @enderror
       </div>
 
+      <!-- メールアドレス -->
       <div class="auth__form-group">
         <label for="email" class="auth__form-label">
           メールアドレス
@@ -27,6 +29,7 @@
         @enderror
       </div>
 
+      <!-- パスワード -->
       <div class="auth__form-group">
         <label for="password" class="auth__form-label">
           パスワード
@@ -37,6 +40,7 @@
         @enderror
       </div>
 
+      <!-- パスワード(確認) -->
       <div class="auth__form-group">
         <label for="password_confirmation" class="auth__form-label">
           パスワード（確認）
@@ -44,6 +48,7 @@
         <input id="password_confirmation" name="password_confirmation" type="password" class="auth__form-input">
       </div>
 
+      <!-- ユーザーアイコン -->
       <div class="auth__form-group">
         <div class="auth__form-input-wrap--file">
           <input type="file" name="icon" id="icon" class="auth__form-input--file">
@@ -56,6 +61,25 @@
           <p class="auth__error-message">{{ $message }}</p>
         @enderror
       </div>
+
+      <!-- 起床時間 -->
+      <div class="auth__form-group">
+        <label for="wakeup_time" class="auth__form-label">
+          起床時間&nbsp;<span class="auth__form-text--warning">&#8251;起床時刻は一度設定すると変更できません</span>
+        </label>
+        <input id="wakeup_time" name="wakeup_time" type="time" class="auth__form-input" min="04:00" max="10:00">
+        @error('wakeup_time')
+          <p class="auth__error-message">{{ $message }}</p>
+        @enderror
+      </div>
+
+      {{-- <div class="post-create__group">
+        <label for="wakeup_time" class="post-create__label">
+          起床時間
+        </label>
+        <input type="time" name="wakeup_time" id="wakeup_time" class="post-create__input" min="04:00" max="10:00"
+          value="{{ old('wakeup_time') }}" required>
+      </div> --}}
 
       <button type="submit" class="auth__form-button">
         登録する
