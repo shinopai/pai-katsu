@@ -41,7 +41,7 @@
           <div class="top__sidebar-ranking">
             <div class="top__sidebar-ranking-header">
               <span class="top__sidebar-ranking-title">早起き達成ランキング</span>
-              <span class="top__sidebar-ranking-month">11月</span>
+              <span class="top__sidebar-ranking-month">1月</span>
             </div>
 
             <ul class="top__sidebar-ranking-list">
@@ -102,7 +102,7 @@
                   <img src="{{ asset('images/icon_user_01_dummy.webp') }}" alt="" class="top__post-user-icon">
                   <div class="top__post-user-info">
                     <span class="top__post-user-name">sora</span>
-                    <time class="top__post-date">2020/11/14 11:17</time>
+                    <time class="top__post-date">2026/01/06 11:17</time>
                     <!-- 目標時間 -->
                     <div class="top__post-goal">
                       <span class="top__post-goal-text">目標起床時間：07:00</span>
@@ -149,7 +149,7 @@
                   <img src="{{ asset('images/icon_user_01_dummy.webp') }}" alt="" class="top__post-user-icon">
                   <div class="top__post-user-info">
                     <span class="top__post-user-name">sora</span>
-                    <time class="top__post-date">2020/11/14 11:17</time>
+                    <time class="top__post-date">2026/01/06 11:17</time>
                     <!-- 目標時間 -->
                     <div class="top__post-goal">
                       <span class="top__post-goal-text">目標起床時間：07:00</span>
@@ -196,7 +196,7 @@
                   <img src="{{ asset('images/icon_user_01_dummy.webp') }}" alt="" class="top__post-user-icon">
                   <div class="top__post-user-info">
                     <span class="top__post-user-name">sora</span>
-                    <time class="top__post-date">2020/11/14 11:17</time>
+                    <time class="top__post-date">2026/01/06 11:17</time>
                     <!-- 目標時間 -->
                     <div class="top__post-goal">
                       <span class="top__post-goal-text">目標起床時間：07:00</span>
@@ -239,7 +239,7 @@
 
       </div>
     </div>
-    <a href="{{ url('/') }}" class="top__new-post flex">
+    <a href="{{ route('posts.create') }}" class="top__new-post flex">
       <i class="fa-solid fa-plus top__new-post-icon" style="color: #ffffff;"></i>
       <span class="top__new-post-text">新規投稿</span>
     </a>

@@ -1,0 +1,85 @@
+@use "../modules/mixins" as m;
+@use "../modules/placeholders";
+@use "../modules/variables" as v;
+
+/* =====================
+  新規投稿フォーム
+===================== */
+
+.post-create {
+    width: min(100%, 450px);
+    margin: 0 auto;
+}
+
+/* タイトル */
+.post-create__heading {
+    @include m.font-set(18, 600);
+    text-align: center;
+}
+
+/* フォーム */
+.post-create__form {
+    margin-top: 24px;
+}
+
+.post-create__group {
+    & + & {
+        margin-top: 20px;
+    }
+}
+
+.post-create__label {
+    @include m.font-set(14, 600);
+    display: inline-block;
+    margin-bottom: 0.2em;
+}
+
+.post-create__input,
+.post-create__textarea {
+    width: 100%;
+    @include m.font-set(14);
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    &:focus {
+        outline: none;
+        border-color: #4f8cff;
+        box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.15);
+    }
+    &::placeholder {
+        color: #aaa;
+    }
+}
+
+.post-create__input {
+    min-height: 36px;
+    padding: 0 1em;
+}
+
+.post-create__textarea {
+    resize: none;
+    min-height: 140px;
+    padding: 0.9em 1em;
+}
+
+/* 送信ボタン */
+.post-create__submit {
+    width: 100%;
+    @include m.font-set(16, 600);
+    padding: 0.9em;
+    margin-top: 1em;
+    letter-spacing: 0.05em;
+    border-radius: 10px;
+    border: none;
+    color: #fff;
+    background-color: #4f8cff;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s, box-shadow 0.1s;
+    &:hover {
+        background-color: #3b78e0;
+    }
+    &:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) inset;
+    }
+}

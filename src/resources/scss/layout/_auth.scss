@@ -1,5 +1,6 @@
 @use "../modules/mixins" as m;
 @use "../modules/placeholders";
+@use "../modules/variables" as v;
 
 .auth {
     width: min(100%, 360px);
@@ -101,7 +102,7 @@
 .auth__error-message {
     @include m.font-set(12);
     margin-top: 0.34em;
-    color: #d9534f;
+    color: v.$color-red;
 }
 
 /* ===== button ===== */

@@ -1,3 +1,7 @@
+@use "../modules/mixins" as m;
+@use "../modules/placeholders";
+@use "../modules/variables" as v;
+
 /* basic width */
 .wrap {
     width: min(100%, 1220px);
@@ -18,4 +22,26 @@
 /* main content area */
 .main {
     padding: 30px 0;
+}
+
+/* flash message */
+.flash-message {
+    @include m.font-set(14);
+    padding: 1em;
+    border-style: solid;
+    border-width: 1.5px;
+    border-left-width: 3px;
+}
+.flash-message--error {
+    border-color: #be1f1d;
+    background-color: #fce3e2;
+    color: #be1f1d;
+}
+
+/* validation error message */
+.errors {
+    @include m.font-set(14, 600);
+}
+.errors__item {
+    color: v.$color-red;
 }

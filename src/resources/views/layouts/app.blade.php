@@ -5,8 +5,11 @@
   <meta charset="UTF-8">
   <title>@yield('title', 'PaiKatsu')</title>
 
-  {{-- include css --}}
-  @vite(['resources/js/app.js'])
+  {{-- include css、js --}}
+  @vite([
+      'resources/scss/app.scss',
+      'resources/js/app.js',
+  ])
 
   {{-- google fonts --}}
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,11 +21,15 @@
   {{-- Font Awesome --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
 </head>
-</head>
 
 <body>
   {{-- ヘッダー --}}
   @include('partials.header')
+
+  {{-- フラッシュエラーメッセージ  --}}
+  @if (session('error'))
+    <p class="flash-message flash-message--error">{{ session('error') }}</p>
+  @endif
 
   {{-- メインコンテンツ --}}
   <main class="main">
