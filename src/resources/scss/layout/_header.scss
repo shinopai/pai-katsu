@@ -9,6 +9,7 @@
     justify-content: space-between;
     align-items: center;
     min-height: 56px;
+    position: relative;
 }
 .header__title {
     @include m.font-set(18) {
@@ -60,4 +61,30 @@
     &::before {
         content: "\f406";
     }
+    &::after {
+        content: "\f0d7"; /* caret-down */
+        font-family: "Font Awesome 7 Free";
+        font-weight: 900; /* solid */
+        margin-left: 4px;
+        font-size: 0.8em;
+    }
+}
+.header__dropdown {
+    position: absolute;
+    right: 0;
+    bottom: -60px;
+    background-color: #fff;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+    display: none;
+    &.active {
+        display: block;
+    }
+}
+.header__dropdown-button {
+    @include m.font-set(14);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
