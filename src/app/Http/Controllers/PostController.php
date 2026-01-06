@@ -36,14 +36,6 @@ class PostController extends Controller
                 return Tag::firstOrCreate(['name' => $name])->id;
             });
 
-            // foreach ($request->tags as $tagName) {
-            //     $tag = Tag::firstOrCreate([
-            //         'name' => $tagName,
-            //     ]);
-
-            //     $tagIds[] = $tag->id;
-            // }
-
             $post->tags()->sync($tagIds);
         }
 
