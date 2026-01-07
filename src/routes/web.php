@@ -3,12 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 
-// root
-Route::get('/', function () {
-    return view('index');
-});
-
 // posts
 Route::middleware(['auth'])->group(function () {
-    Route::resource('posts', PostController::class);
+    // ルート
+    Route::get('/', [PostController::class, 'index'])->name('posts.index');
+
+    // 投稿一覧追加取得
+    Route::get('/posts/load', [PostController::class, 'load'])
+        ->name('posts.load');
+
+    Route::resource('posts', PostController::class)->except(['index']);
 });
