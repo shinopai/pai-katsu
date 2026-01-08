@@ -1,42 +1,51 @@
 export function initInfiniteScroll() {
-    const postsContainer = document.getElementById("xTopPosts");
-    if (!postsContainer) return;
+    const container = document.getElementById("xTopPosts");
+    if (!container) return;
+
+    const loadUrl = container.dataset.loadUrl;
+    if (!loadUrl) return;
 
     let isLoading = false;
-    let observer = null;
+    let observer;
 
     const observe = () => {
-        const trigger = document.getElementById("xLoadTrigger");
+        const trigger = container.querySelector(".top__load-trigger");
         if (!trigger) return;
 
         if (observer) observer.disconnect();
 
         observer = new IntersectionObserver(async (entries) => {
             const entry = entries[0];
-            if (!entry.isIntersecting || isLoading) return;
+            if (!entry.isIntersecting) return;
+            if (isLoading) return;
 
-            const currentTrigger = entry.target;
-            const cursor = currentTrigger.dataset.nextCursor;
-
+            const cursor = trigger.dataset.nextCursor;
             if (!cursor) {
                 observer.disconnect();
                 return;
             }
 
-            // ★ 同じ trigger で二度発火させない
-            observer.unobserve(currentTrigger);
             isLoading = true;
 
             try {
                 const res = await fetch(
-                    `/posts/load?cursor=${encodeURIComponent(cursor)}`
+                    `${loadUrl}?cursor=${encodeURIComponent(cursor)}`,
+                    {
+                        headers: {
+                            "X-Requested-With": "XMLHttpRequest",
+                        },
+                    }
                 );
-                if (!res.ok) throw new Error("Failed to load posts");
+
+                if (!res.ok) throw new Error("Failed to load");
 
                 const html = await res.text();
 
-                currentTrigger.remove();
-                postsContainer.insertAdjacentHTML("beforeend", html);
+                // 古い trigger を先に消す（超重要）
+                trigger.remove();
+
+                // 新しい投稿 + 新しい trigger を追加
+                container.insertAdjacentHTML("beforeend", html);
             } catch (e) {
                 console.error(e);
             } finally {

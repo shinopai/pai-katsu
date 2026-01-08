@@ -28,7 +28,7 @@
   <!-- タグ -->
   <div class="top__post-tags">
     @foreach ($post->tags as $tag)
-      <a href="#" class="top__post-tag">#{{ $tag->name }}</a>
+      <a href="{{ route('tags.show', ['tag' => $tag->id]) }}" class="top__post-tag">#{{ $tag->name }}</a>
     @endforeach
   </div>
 

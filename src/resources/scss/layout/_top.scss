@@ -24,7 +24,7 @@
 }
 .top__sidebar-zoom {
     @extend %bg-blue-shadow;
-    min-height: 60px;
+    min-height: 65px;
     text-align: center;
     padding-top: 5px;
 }
@@ -39,7 +39,7 @@
         font-weight: 900;
         position: absolute;
         display: inline-block;
-        font-size: 1.2em;
+        font-size: 1.5em;
         color: #fff;
         bottom: -1.3em;
         left: 0;
@@ -323,4 +323,20 @@
 .top__new-post-text {
     @include m.font-set(11);
     color: #fff;
+}
+.top__tag-header {
+    @extend %bg-red;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
+    padding: 7px 15px;
+}
+.top__tag-heading {
+    @include m.font-set(16);
+    color: #fff;
+    text-align: center;
+}
+.top__tag-post-count {
+    @include m.font-set(12);
+    color: #fff;
+    text-align: right;
 }

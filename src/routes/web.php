@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\TagController;
 
-// posts
+//--- post ---------------------------------------------
 Route::middleware(['auth'])->group(function () {
     // ルート
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
@@ -14,3 +15,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('posts', PostController::class)->except(['index']);
 });
+
+//--- tags ---------------------------------------------------
+// タグ毎投稿一覧
+Route::get('/tags/{tag}', [TagController::class, 'show'])
+    ->name('tags.show');
+
+// タグ毎投稿一覧追加取得
+Route::get('/tags/{tag}/posts/load', [TagController::class, 'load'])
+    ->name('tags.posts.load');

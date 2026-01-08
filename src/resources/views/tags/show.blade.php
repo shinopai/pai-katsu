@@ -19,10 +19,11 @@
             </div>
 
             <ul class="top__sidebar-tags-list">
-              @foreach ($mainTags as $tag)
+              {{-- サイドバーのタグ一覧 --}}
+              @foreach ($mainTags as $sideTag)
                 <li class="top__sidebar-tags-item">
-                  <a href="{{ route('tags.show', ['tag' => $tag->id]) }}"
-                    class="top__sidebar-tags-link">#{{ $tag->name }}</a>
+                  <a href="{{ route('tags.show', ['tag' => $sideTag->id]) }}"
+                    class="top__sidebar-tags-link">#{{ $sideTag->name }}</a>
                 </li>
               @endforeach
             </ul>
@@ -80,7 +81,15 @@
             </ul>
           </div>
         </aside>
-        <main class="top__posts" id="xTopPosts" data-load-url="/posts/load">
+        <main class="top__posts" id="xTopPosts" data-load-url="{{ route('tags.posts.load', $tag) }}">
+          <div class="top__tag-header">
+            <h1 class="top__tag-heading">
+              #{{ $tag->name }}
+            </h1>
+            <p class="top__tag-post-count">
+              {{ $tag->posts_count ?? '' }}件
+            </p>
+          </div>
           @include('posts._list', ['posts' => $posts])
         </main>
       </div>
