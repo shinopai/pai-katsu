@@ -15,6 +15,6 @@
     </div>
 
     {{-- 新規投稿ボタン --}}
-    @include('components.create_post_button')
+    <x-floating-post-button href="{{ route('posts.create') }}" />
   </div>
 @endsection
