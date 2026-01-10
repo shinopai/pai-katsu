@@ -13,7 +13,7 @@ class FloatingPostButton extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(String $href)
+    public function __construct(string $href = '/posts/create')
     {
         $this->href = $href;
     }

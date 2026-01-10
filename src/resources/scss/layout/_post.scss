@@ -1,6 +1,164 @@
 @use "../modules/mixins" as m;
 @use "../modules/placeholders";
 @use "../modules/variables" as v;
+@use "../modules/functions" as f;
+
+/*=====================
+  基本投稿カード
+=====================*/
+
+.post-card {
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 16px 16px 0 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    @include m.font-set(13);
+    &:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+}
+.post-card__header {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.post-card__user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.post-card__user-inner {
+    justify-content: flex-start;
+    column-gap: 15px;
+}
+.post-card__user-icon {
+    width: 40px;
+    border-radius: 100vh;
+}
+.post-card__user-name {
+    @include m.font-set(11, bold);
+}
+.post-card__date {
+    @include m.font-set(12);
+    margin-left: 1em;
+    color: #888;
+}
+.post-card__goal {
+    @include m.font-set(12);
+    padding-left: 1.2em;
+    position: relative;
+    &::before {
+        content: "\f017"; /* clock */
+        font-family: "Font Awesome 7 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 0.9em;
+        color: v.$color-blue;
+    }
+}
+.post-card__goal-text {
+    color: v.$color-blue;
+}
+.post-card__achievement {
+    padding: 4px 20px;
+    border-radius: 3px;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    @extend %bg-red;
+}
+.post-card__achievement-label {
+    display: block;
+    @include m.font-set(10);
+    color: #fff;
+}
+
+.post-card__achievement-days {
+    @include m.font-set(11);
+    color: #fff;
+    display: block;
+}
+
+.post-card__achievement-number {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #fff;
+}
+.post-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.post-card__tag {
+    padding: 0.3em;
+    border: 1px solid #4db6ac;
+    border-radius: 3px;
+    color: #4db6ac;
+    @include m.font-set(11, 600) {
+        line-height: 1.2;
+    }
+}
+.post-card__body {
+    padding: 10px 0;
+}
+.post-card__text {
+    @include m.font-set(14);
+    white-space: pre-line;
+}
+.post-card__footer {
+    @include m.font-set(12);
+    justify-content: flex-end;
+    gap: 16px;
+    position: relative;
+    padding: 0.6em 0;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -16px;
+        right: -16px;
+        height: 1px;
+        background-color: v.$color-gray;
+    }
+}
+.post-card__comment {
+    position: relative;
+    padding-left: 1.4em;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    &::before {
+        content: "\f075";
+        font-family: "Font Awesome 7 Free";
+        font-weight: 400;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1em;
+        color: #3b82f6;
+    }
+}
+.post-card__like {
+    position: relative;
+    padding-left: 1.4em;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    &::before {
+        content: "\f004";
+        font-family: "Font Awesome 7 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1em;
+        color: #333;
+    }
+}
 
 /* =====================
   新規投稿フォーム
@@ -82,4 +240,136 @@
         transform: translateY(1px);
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) inset;
     }
+}
+
+/* =====================
+  投稿詳細
+===================== */
+.post-show {
+    width: min(100%, 450px);
+    margin: 0 auto;
+}
+
+// コメント一覧
+.post-show__comments {
+    margin-top: 25px;
+}
+
+.post-show__comment-list {
+    & > *:first-child {
+        border-radius: 8px 8px 0 0;
+    }
+}
+
+.post-show__comment {
+    padding: 12px 14px;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid v.$color-gray;
+}
+
+.post-show__comment-header {
+    gap: 8px;
+}
+
+.post-show__comment-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 100vh;
+    object-fit: cover;
+}
+
+.post-show__comment-meta {
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.post-show__comment-username {
+    @include m.font-set(13, 600);
+    line-height: 1.2;
+}
+
+.post-show__comment-time {
+    @include m.font-set(11);
+    color: #888;
+}
+
+.post-show__comment-body {
+    margin-top: 8px;
+}
+
+.post-show__comment-content {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+    word-break: break-word;
+}
+.post-show__no-comments {
+    @include m.font-set(14);
+    color: #666;
+    margin-bottom: f.em(15, 14);
+}
+
+// コメントフォーム
+.post-show__comment-form {
+    padding: 16px;
+    border-radius: 0 0 3px 3px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.post-show__comment-form-header {
+    gap: 8px;
+}
+
+.post-show__comment-form-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 100vh;
+    object-fit: cover;
+}
+
+.post-show__comment-form-username {
+    @include m.font-set(13, 600);
+}
+
+.post-show__comment-textarea {
+    width: 100%;
+    min-height: 80px;
+    @include m.font-set(14) {
+        line-height: 1.6;
+    }
+    padding: f.em(10, 14) f.em(12, 14);
+    margin-top: f.em(15, 14);
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    resize: none;
+}
+
+.post-show__comment-textarea:focus {
+    outline: none;
+    border-color: #ff9f43;
+}
+
+.post-show__comment-limit {
+    @include m.font-set(12);
+    color: v.$color-red;
+    display: block;
+    text-align: right;
+    line-height: 0.7;
+}
+
+.post-show__comment-submit {
+    @include m.font-set(13, 600);
+    padding: f.em(6, 13) f.em(16, 13);
+    margin: f.em(25, 13) 0 0 auto;
+    border-radius: 4px;
+    border: none;
+    @extend %bg-red;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+    display: block;
+}
+
+.post-show__comment-submit:hover {
+    opacity: 0.9;
 }

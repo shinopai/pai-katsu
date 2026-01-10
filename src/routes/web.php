@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\CommentController;
 
 //--- post ---------------------------------------------
 Route::middleware(['auth'])->group(function () {
@@ -24,3 +25,6 @@ Route::get('/tags/{tag}', [TagController::class, 'show'])
 // タグ毎投稿一覧追加取得
 Route::get('/tags/{tag}/posts/load', [TagController::class, 'load'])
     ->name('tags.posts.load');
+
+//--- comments ---------------------------------------------------
+Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');

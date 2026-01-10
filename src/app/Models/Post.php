@@ -29,4 +29,12 @@ class Post extends Model
     {
         return $this->belongsToMany(Tag::class)->using(PostTag::class);
     }
+
+    /**
+     * コメント
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
