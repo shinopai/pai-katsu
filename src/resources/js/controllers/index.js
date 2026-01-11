@@ -2,8 +2,10 @@
 // Run that command whenever you add a new controller or create them with
 // `php artisan stimulus:make controllerName`
 
-import { Stimulus } from '../libs/stimulus'
+import { Stimulus } from "../libs/stimulus";
 
+import HeaderController from "./header_controller";
+import UserController from "./user_controller";
 
-import HeaderController from './header_controller'
-Stimulus.register('header', HeaderController)
+Stimulus.register("header", HeaderController);
+Stimulus.register("user", UserController);

@@ -45,7 +45,7 @@
 }
 .post-card__goal {
     @include m.font-set(12);
-    padding-left: 1.2em;
+    padding-left: f.em(14, 12);
     position: relative;
     &::before {
         content: "\f017"; /* clock */

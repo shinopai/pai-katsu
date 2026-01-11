@@ -35,9 +35,7 @@
 
   {{-- メインコンテンツ --}}
   <main class="main">
-    <div class="wrap">
-      @yield('content')
-    </div>
+    @yield('content')
   </main>
 </body>
 

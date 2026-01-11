@@ -5,9 +5,6 @@ html {
     font-optical-sizing: auto;
     font-style: normal;
     font-variation-settings: "GRAD" 0;
-    // font-family: "Abhaya Libre", serif;
-    // font-family: "Alegreya Sans SC", sans-serif;
-    // font-family: "Alexandria", sans-serif;
 }
 
 * {
@@ -44,6 +41,7 @@ table {
 input,
 button,
 textarea,
-select {
+select,
+span {
     font: inherit;
 }

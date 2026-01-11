@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\UserController;
 
-//--- post ---------------------------------------------
+//--- 投稿 ---------------------------------------------
 Route::middleware(['auth'])->group(function () {
     // ルート
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
@@ -17,7 +18,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('posts', PostController::class)->except(['index']);
 });
 
-//--- tags ---------------------------------------------------
+//--- タグ ---------------------------------------------------
 // タグ毎投稿一覧
 Route::get('/tags/{tag}', [TagController::class, 'show'])
     ->name('tags.show');
@@ -26,5 +27,8 @@ Route::get('/tags/{tag}', [TagController::class, 'show'])
 Route::get('/tags/{tag}/posts/load', [TagController::class, 'load'])
     ->name('tags.posts.load');
 
-//--- comments ---------------------------------------------------
+//--- コメント ---------------------------------------------------
 Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+
+//--- ユーザー ---------------------------------------------------
+Route::resource('users', UserController::class)->only(['show']);

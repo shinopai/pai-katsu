@@ -82,6 +82,12 @@
         display: block;
     }
 }
+.header__dropdown-item {
+    @include m.font-set(14);
+    &:hover {
+        background-color: #f0f0f0;
+    }
+}
 .header__dropdown-button {
     @include m.font-set(14);
     background-color: transparent;

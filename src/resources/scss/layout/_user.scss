@@ -1,0 +1,161 @@
+@use "../modules/mixins" as m;
+@use "../modules/placeholders";
+@use "../modules/variables" as v;
+@use "../modules/functions" as f;
+
+/*=====================
+  ユーザー詳細ページ
+=====================*/
+.user-show {
+    width: min(100%, 650px);
+    margin: 0 auto;
+}
+.user-show__card {
+    border-radius: 4px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+}
+.user-show__header {
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 25px;
+}
+.user-show__icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 100vh;
+    object-fit: cover;
+}
+.user-show__header-body {
+    flex-grow: 1;
+}
+.user-show__name {
+    @include m.font-set(11, 600);
+}
+.user-show__wakeup-time {
+    @include m.font-set(12, 600);
+    color: v.$color-blue;
+    padding-left: f.em(14, 12);
+    margin-top: f.em(7, 12);
+    position: relative;
+    &::before {
+        content: "\f017"; /* clock */
+        font-family: "Font Awesome 7 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 0.9em;
+        color: v.$color-blue;
+    }
+}
+.user-show__note {
+    @include m.font-set(10);
+    display: block;
+    margin-top: f.em(8, 10);
+    color: #6b7280;
+}
+.user-show__meta {
+    flex-grow: 1;
+    justify-content: flex-end;
+    gap: 15px;
+}
+.user-show__calendar {
+    @include m.font-set(10, 600);
+    background: url("../../../public/images/bg_calendar_01.webp") no-repeat;
+    background-size: cover;
+    background-position: center;
+    @include m.centering;
+    width: 40px;
+    gap: 3px;
+    padding-top: f.em(10, 10);
+}
+.user-show__calendar-number {
+    font-size: 1.4em;
+}
+.user-show__calendar-month {
+}
+.user-show__achievement {
+    @extend %bg-red;
+    @include m.centering;
+    flex-direction: column;
+    width: 90px;
+    border-radius: 4px;
+}
+.user-show__achievement-label {
+    @include m.font-set(11, 600);
+    color: #fff;
+}
+.user-show__achievement-value {
+    @include m.font-set(11, 600);
+    line-height: 1;
+}
+.user-show__achievement-number {
+    font-size: 1.4em;
+    color: #fff;
+}
+.user-show__achievement-days {
+    color: #fff;
+}
+.user-show__follow-button {
+    width: 90px;
+    border-radius: 4px;
+    background-color: v.$color-blue;
+    color: #fff;
+    @include m.font-set(12, 600);
+    padding-left: f.em(15, 12);
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    position: relative;
+    // font awesome アイコン
+    &::before {
+        content: "\f007";
+        font-family: "Font Awesome 7 Free";
+        font-weight: 900;
+        position: absolute;
+        left: 0.8em;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.9em;
+    }
+    &:hover {
+        opacity: 0.9;
+    }
+}
+.user-show__stats {
+    margin-top: 20px;
+    gap: 20px;
+}
+.user-show__follow-count,
+.user-show__follower-count {
+    @include m.font-set(12);
+    color: #6b7280;
+}
+.user-show__posts {
+    margin-top: 20px;
+}
+.user-show__tabs {
+    align-items: center;
+}
+.user-show__tab {
+    @include m.font-set(14, 600);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    width: 50%;
+    color: #6b7280;
+    min-height: 35px;
+    border-radius: 4px 4px 0 0;
+    @include m.centering;
+    &.active {
+        @extend %bg-red;
+        color: #fff;
+    }
+}
+.user-show__data {
+    min-height: 200px;
+    display: none;
+    &.active {
+        display: block;
+    }
+}

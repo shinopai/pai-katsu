@@ -17,16 +17,21 @@
             data-action="click->header#operateMenu">{{ Auth::user()->name }}さん</a>
         @endguest
       </nav>
-      <ul class="header__dropdown">
-        <li>
-          <form method="POST" action="{{ route('logout') }}" class="header__dropdown-form">
-            @csrf
-            <button type="submit" class="header__dropdown-button">
-              ログアウト
-            </button>
-          </form>
-        </li>
-      </ul>
+      @auth
+        <ul class="header__dropdown">
+          <li class="header__dropdown-item">
+            <a href="{{ route('users.show', Auth::user()->id) }}">詳細</a>
+          </li>
+          <li class="header__dropdown-item">
+            <form method="POST" action="{{ route('logout') }}" class="header__dropdown-form">
+              @csrf
+              <button type="submit" class="header__dropdown-button">
+                ログアウト
+              </button>
+            </form>
+          </li>
+        </ul>
+      @endauth
     </div>
   </div>
 </header>

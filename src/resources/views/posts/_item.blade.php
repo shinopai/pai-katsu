@@ -12,7 +12,7 @@
             <time class="post-card__date">{{ $post->created_at->format('Y/m/d H:i') }}</time>
             <!-- 目標時間 -->
             <div class="post-card__goal">
-              <span class="post-card__goal-text">目標起床時間：{{ $post->user->wakeup_time }}</span>
+              <span class="post-card__goal-text">目標起床時間：{{ $post->user->wakeup_time->format('H:i') }}</span>
             </div>
           </div>
         </div>
