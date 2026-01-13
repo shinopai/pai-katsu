@@ -62,9 +62,9 @@
         </div>
         {{-- いいねした投稿 --}}
         <div class="user-show__data" data-user-target="likeData">
-          @if ($user->posts()->exists())
-            @foreach ($user->posts as $post)
-              @include('posts._item', ['post' => $post])
+          @if ($user->likedPosts()->exists())
+            @foreach ($user->likedPosts as $likedPost)
+              @include('posts._item', ['post' => $likedPost])
             @endforeach
           @else
             <p class="user-show__no-posts-message">投稿がありません。</p>
