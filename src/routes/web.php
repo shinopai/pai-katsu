@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Api\LikeController;
 
 //--- 投稿 ---------------------------------------------
 Route::middleware(['auth'])->group(function () {
@@ -32,3 +33,10 @@ Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name
 
 //--- ユーザー ---------------------------------------------------
 Route::resource('users', UserController::class)->only(['show']);
+
+//--- いいね API---------------------------------------------------
+Route::prefix('api')->group(function () {
+    Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])
+        ->middleware('auth')
+        ->name('posts.like');
+});

@@ -37,4 +37,32 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    /**
+     * いいね
+     */
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    /**
+     * いいねしたユーザー（多対多）
+     */
+    public function likedUsers()
+    {
+        return $this->belongsToMany(User::class, 'likes');
+    }
+
+    /**
+     * 認証ユーザーがいいねしているか
+     */
+    public function isLikedBy(?User $user): bool
+    {
+        if (!$user) return false;
+
+        return $this->likes()
+            ->where('user_id', $user->id)
+            ->exists();
+    }
 }

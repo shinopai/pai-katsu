@@ -19,3 +19,13 @@ window.addEventListener("load", () => {
         commentForm.scrollIntoView({ behavior: "smooth" });
     }
 });
+
+// Vue.js アプリケーションのマウント
+import { createApp } from "vue";
+import LikeButton from "./components/LikeButton.vue";
+
+const app = createApp({});
+
+// 部分Vueとして登録
+app.component("like-button", LikeButton);
+app.mount("#app");

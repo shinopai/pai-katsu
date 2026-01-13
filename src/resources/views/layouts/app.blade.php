@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <title>@yield('title', 'PaiKatsu')</title>
 
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   {{-- include css、js --}}
   @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 
@@ -34,7 +37,7 @@
   @endif
 
   {{-- メインコンテンツ --}}
-  <main class="main">
+  <main class="main" id="app">
     @yield('content')
   </main>
 </body>

@@ -47,9 +47,9 @@
       <button class="post-card__comment">
         <span class="post-card__comment-count">{{ $post->comments()->count() }}</span>
       </button>
-      <button class="post-card__like">
-        <span class="post-card__like-count">0</span>
-      </button>
+      {{-- いいねボタン --}}
+      <like-button :count="{{ $post->likes()->count() }}" :liked="@json($post->isLikedBy(Auth::user()))"
+        :post-id="{{ $post->id }}"></like-button>
     </footer>
   </article>
 </a>

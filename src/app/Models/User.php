@@ -65,4 +65,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    /**
+     * いいね
+     */
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    /**
+     * いいねした投稿
+     */
+    public function likedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'likes');
+    }
 }
