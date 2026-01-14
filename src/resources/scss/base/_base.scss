@@ -1,6 +1,7 @@
 @use "../modules/mixins" as m;
 @use "../modules/placeholders";
 @use "../modules/variables" as v;
+@use "../modules/functions" as f;
 
 /* basic width */
 .wrap {
@@ -49,4 +50,68 @@
 }
 .errors__item {
     color: v.$color-red;
+}
+
+/* 早起き達成ポップアップ */
+.wakeup-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.35);
+    @include m.centering;
+    z-index: 1000;
+}
+.wakeup-popup {
+    position: relative;
+    background-color: #fff;
+    width: min(100%, 420px);
+    padding: 24px 0;
+    border-radius: 3px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+.wakeup-popup__close {
+    position: absolute;
+    top: 0;
+    right: f.em(7, 18);
+    border: none;
+    background: none;
+    @include m.font-set(18);
+    cursor: pointer;
+    color: #888;
+}
+.wakeup-popup__header {
+    @include m.centering;
+    gap: 8px;
+    color: #2f80ed;
+    font-weight: bold;
+    padding-top: 15px;
+    position: relative;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: v.$color-gray;
+    }
+}
+.wakeup-popup__header i {
+    @include m.font-set(14, bold);
+}
+.wakeup-popup__header-text {
+    color: v.$color-blue;
+}
+.wakeup-popup__body {
+    @include m.centering;
+    @include m.font-set(14);
+    gap: f.em(12, 14);
+    margin-top: f.em(12, 14);
+}
+.wakeup-popup__badge {
+    @extend %bg-red;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    @include m.font-set(13, bold);
 }

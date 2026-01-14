@@ -17,7 +17,7 @@
               {{ $tag->posts_count ?? '' }}件
             </p>
           </div>
-          @include('posts._list', ['posts' => $posts])
+          @include('posts._list', ['posts' => $posts, 'monthlyCounts' => $monthlyCounts])
         </main>
       </div>
     </div>

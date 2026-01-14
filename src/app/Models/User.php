@@ -81,4 +81,23 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Post::class, 'likes');
     }
+
+    /**
+     * 早起き達成記録
+     */
+    public function achievementWakeups()
+    {
+        return $this->hasMany(AchievementWakeup::class);
+    }
+
+    /**
+     * 早起き達成投稿一覧
+     */
+    public function achievedPosts()
+    {
+        return $this->belongsToMany(
+            Post::class,
+            'achievement_wakeups'
+        );
+    }
 }

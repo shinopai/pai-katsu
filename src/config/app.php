@@ -123,4 +123,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /**
+     * 早起き判定テストモード
+     */
+    'wakeup_test_mode' => env('WAKEUP_TEST_MODE', false),
 ];

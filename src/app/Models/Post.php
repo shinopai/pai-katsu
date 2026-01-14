@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -64,5 +65,24 @@ class Post extends Model
         return $this->likes()
             ->where('user_id', $user->id)
             ->exists();
+    }
+
+    /**
+     * この投稿の早起き達成記録
+     */
+    public function achievementWakeups()
+    {
+        return $this->hasMany(AchievementWakeup::class);
+    }
+
+    /**
+     * 子の投稿で早起き達成したユーザー
+     */
+    public function achievedUsers()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'achievement_wakeups'
+        );
     }
 }

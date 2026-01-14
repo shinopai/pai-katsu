@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
+use App\Models\AchievementWakeup;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
+use App\Services\AchievementWakeupService;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, AchievementWakeupService $service)
     {
         // メインタグ取得
         $mainTags = Tag::withCount('posts')
@@ -23,7 +27,10 @@ class PostController extends Controller
             ->orderByDesc('id')
             ->cursorPaginate(10);
 
-        return view('posts.index', compact('mainTags', 'posts'));
+        // 全ユーザーの早起き達成回数取得
+        $monthlyCounts = $service->getMonthlyAchievementCountsAll($posts);
+
+        return view('posts.index', compact('mainTags', 'posts', 'monthlyCounts'));
     }
 
     // 投稿一覧追加取得
@@ -43,13 +50,31 @@ class PostController extends Controller
     }
 
     // 新規投稿保存
-    public function store(StorePostRequest $request)
-    {
+    public function store(
+        StorePostRequest $request,
+        AchievementWakeupService $service
+    ) {
         $post = Post::create([
             'user_id'     => Auth::id(),
             'detail'      => $request->detail
         ]);
 
+        $user = Auth::user();
+
+        // 早起き判定
+        $achieved = $this->tryCreateAchievementWakeup($user, $post);
+
+        if ($achieved) {
+            $count = $service->getMonthlyAchievementCount($user->id, now());
+
+            // セッションに早起き達成フラグをセット
+            session()->flash('wakeup_achieved', [
+                'count' => $count,
+                'month' => now()->month
+            ]);
+        }
+
+        // タグ処理
         if ($request->filled('tags')) {
             $tagIds = [];
 
@@ -70,8 +95,56 @@ class PostController extends Controller
     }
 
     // 投稿詳細
-    public function show(Post $post)
+    public function show(Post $post, AchievementWakeupService $service)
     {
-        return view('posts.show', compact('post'));
+        $count = $service->getMonthlyAchievementCount($post->user->id, now());
+
+        return view('posts.show', compact('post', 'count'));
+    }
+
+    // 早起き判定
+    private function tryCreateAchievementWakeup(User $user, Post $post): bool
+    {
+        $now = now();
+
+        $targetTimeToday = today()->setTimeFromTimeString($user->wakeup_time);
+
+        $targetTime = $now->lessThan($targetTimeToday)
+            ? $targetTimeToday
+            : $targetTimeToday->copy()->addDay();
+
+        $startTime = $targetTime->copy()->subHours(3);
+        $achievedDate = $targetTime->toDateString();
+
+        $alreadyAchieved = AchievementWakeup::where('user_id', $user->id)
+            ->where('achieved_date', $achievedDate)
+            ->exists();
+
+        if ($alreadyAchieved) {
+            return false;
+        }
+
+        // テストモード判定(時間の範囲を無視して達成扱いにする)
+        if (config('app.wakeup_test_mode')) {
+            AchievementWakeup::create([
+                'user_id' => $user->id,
+                'post_id' => $post->id,
+                'achieved_date' => $achievedDate
+            ]);
+
+            return true;
+        }
+
+        if ($now->between($startTime, $targetTime)) {
+            AchievementWakeup::create([
+                'user_id' => $user->id,
+                'post_id' => $post->id,
+                'achieved_date' => $achievedDate
+            ]);
+
+            return true;
+        }
+
+        return false;
     }
 }

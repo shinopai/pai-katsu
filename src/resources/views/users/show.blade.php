@@ -18,13 +18,13 @@
               </div>
               <div class="user-show__meta flex">
                 <div class="user-show__calendar">
-                  <span class="user-show__calendar-number">1</span>
+                  <span class="user-show__calendar-number">{{ $currentMonth }}</span>
                   <span class="user-show__calendar-month">月</span>
                 </div>
                 <div class="user-show__achievement">
                   <span class="user-show__achievement-label">早起き達成日数</span>
                   <span class="user-show__achievement-value">
-                    <span class="user-show__achievement-number">0</span>
+                    <span class="user-show__achievement-number">{{ $count }}</span>
                     <span class="user-show__achievement-days">日目</span>
                   </span>
                 </div>
@@ -34,7 +34,7 @@
               </div>
             </div>
             <small class="user-show__note">
-              (04:00～{{ $user->wakeup_time }}に投稿できると早起き成功です)
+              (04:00～{{ $user->wakeup_time->format('H:i') }}に投稿できると早起き成功です)
             </small>
           </div>
         </div>
@@ -54,7 +54,7 @@
         <div class="user-show__data active" data-user-target="postData">
           @if ($user->posts()->exists())
             @foreach ($user->posts as $post)
-              @include('posts._item', ['post' => $post])
+              @include('posts._item', ['post' => $post, 'monthlyCounts' => $monthlyCounts])
             @endforeach
           @else
             <p class="user-show__no-posts-message">投稿がありません。</p>
@@ -64,7 +64,7 @@
         <div class="user-show__data" data-user-target="likeData">
           @if ($user->likedPosts()->exists())
             @foreach ($user->likedPosts as $likedPost)
-              @include('posts._item', ['post' => $likedPost])
+              @include('posts._item', ['post' => $likedPost, 'monthlyCounts' => $monthlyCounts])
             @endforeach
           @else
             <p class="user-show__no-posts-message">投稿がありません。</p>

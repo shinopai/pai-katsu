@@ -1,10 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
+  {{-- 早起き達成ポップアップ --}}
+  @if (session('wakeup_achieved'))
+    <div class="wakeup-overlay">
+      <div class="wakeup-popup">
+        <button class="wakeup-popup__close" id="wakeup-close">×</button>
+
+        <div class="wakeup-popup__header">
+          <i class="fa-solid fa-award" style="color: #368ae8;"></i>
+          <span class="wakeup-popup__header-text">早起き達成です！</span>
+        </div>
+
+        <div class="wakeup-popup__body">
+          <span>{{ session('wakeup_achieved.month') }}月の早起き</span>
+          <span class="wakeup-popup__badge">
+            {{ session('wakeup_achieved.count') }}日目
+          </span>
+        </div>
+      </div>
+    </div>
+  @endif
+
   <div class="post-show">
     <div class="wrap">
       {{-- 投稿詳細  --}}
-      @include('posts._item', ['post' => $post])
+      @include('posts._item', ['post' => $post, 'count' => $count])
 
       {{-- コメント一覧 --}}
       <section class="post-show__comments">
@@ -71,4 +92,15 @@
       </section>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const close = document.getElementById('wakeup-close');
+      if (!close) return;
+
+      close.addEventListener('click', () => {
+        document.querySelector('.wakeup-overlay')?.remove();
+      });
+    });
+  </script>
 @endsection

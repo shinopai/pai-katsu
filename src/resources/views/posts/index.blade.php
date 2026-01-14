@@ -9,7 +9,7 @@
 
         {{-- 投稿一覧 --}}
         <main class="top__posts" id="xTopPosts" data-load-url="/posts/load">
-          @include('posts._list', ['posts' => $posts])
+          @include('posts._list', ['posts' => $posts, 'monthlyCounts' => $monthlyCounts])
         </main>
       </div>
     </div>

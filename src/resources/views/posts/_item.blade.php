@@ -18,12 +18,14 @@
         </div>
       </div>
 
-      <div class="post-card__achievement">
-        <span class="post-card__achievement-label">早起き</span>
-        <span class="post-card__achievement-days">
-          <span class="post-card__achievement-number">4</span>日目
-        </span>
-      </div>
+      @if (!empty($monthlyCounts[$post->user->id]))
+        <div class="post-card__achievement">
+          <span class="post-card__achievement-label">早起き</span>
+          <span class="post-card__achievement-days">
+            <span class="post-card__achievement-number">{{ $monthlyCounts[$post->user->id] }}</span>日目
+          </span>
+        </div>
+      @endif
     </header>
 
     <!-- タグ -->
