@@ -21,11 +21,24 @@ window.addEventListener("load", () => {
 });
 
 // Vue.js アプリケーションのマウント
-import { createApp } from "vue";
+// import { createApp } from "vue";
+// import { defineCustomElement } from "vue";
+// import LikeButton from "./components/LikeButton.vue";
+
+// const app = createApp({});
+
+// // 部分Vueとして登録
+// app.component("like-button", LikeButton);
+// app.mount("#app");
+
+// Vue カスタムエレメントとして登録
+import { defineCustomElement } from "vue";
 import LikeButton from "./components/LikeButton.vue";
 
-const app = createApp({});
+const LikeButtonElement = defineCustomElement(LikeButton, {
+    shadowRoot: false,
+});
 
-// 部分Vueとして登録
-app.component("like-button", LikeButton);
-app.mount("#app");
+if (!customElements.get("like-button")) {
+    customElements.define("like-button", LikeButtonElement);
+}

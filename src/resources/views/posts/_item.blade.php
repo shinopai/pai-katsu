@@ -50,8 +50,10 @@
         <span class="post-card__comment-count">{{ $post->comments()->count() }}</span>
       </button>
       {{-- いいねボタン --}}
-      <like-button :count="{{ $post->likes()->count() }}" :liked="@json($post->isLikedBy(Auth::user()))"
-        :post-id="{{ $post->id }}"></like-button>
+      {{-- <like-button :count="{{ $post->likes()->count() }}" :liked="@json($post->isLikedBy(Auth::user()))"
+        :post-id="{{ $post->id }}"></like-button> --}}
+      <like-button count="{{ $post->likes()->count() }}"
+        liked="{{ $post->isLikedBy(Auth::user()) ? 'true' : 'false' }}" post-id="{{ $post->id }}"></like-button>
     </footer>
   </article>
 </a>

@@ -3,9 +3,12 @@
 @section('content')
   <div class="top">
     <div class="wrap">
-      <div class="top__content flex">
+      <div class="top__content flex" id="app">
         {{-- サイドバー --}}
-        @include('partials.sidebar')
+        @include('partials.sidebar', [
+            'monthlyRanking' => $monthlyRanking,
+            'currentMonth' => $currentMonth,
+        ])
 
         {{-- 投稿一覧 --}}
         <main class="top__posts" id="xTopPosts" data-load-url="/posts/load">

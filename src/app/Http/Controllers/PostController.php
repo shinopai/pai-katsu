@@ -30,17 +30,26 @@ class PostController extends Controller
         // 全ユーザーの早起き達成回数取得
         $monthlyCounts = $service->getMonthlyAchievementCountsAll($posts);
 
-        return view('posts.index', compact('mainTags', 'posts', 'monthlyCounts'));
+        // 月間早起き達成回数ランキング取得
+        $monthlyRanking = $service->getMonthlyRankingWithRank();
+
+        // 現在の月を取得
+        $currentMonth = Carbon::now()->month;
+
+        return view('posts.index', compact('mainTags', 'posts', 'monthlyCounts', 'monthlyRanking', 'currentMonth'));
     }
 
     // 投稿一覧追加取得
-    public function load(Request $request)
+    public function load(Request $request, AchievementWakeupService $service)
     {
         $posts = Post::with(['user', 'tags'])
             ->orderByDesc('id')
             ->cursorPaginate(10);
 
-        return view('posts._list', compact('posts'));
+        // 全ユーザーの早起き達成回数取得
+        $monthlyCounts = $service->getMonthlyAchievementCountsAll($posts);
+
+        return view('posts._list', compact('posts', 'monthlyCounts'));
     }
 
     // 新規投稿フォーム

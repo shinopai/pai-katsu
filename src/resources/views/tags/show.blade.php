@@ -5,7 +5,7 @@
     <div class="wrap">
       <div class="top__content flex">
         {{-- サイドバー --}}
-        @include('partials.sidebar')
+        @include('partials.sidebar', ['monthlyRanking' => $monthlyRanking, 'currentMonth' => $currentMonth])
 
         {{-- 投稿一覧 --}}
         <main class="top__posts" id="xTopPosts" data-load-url="{{ route('tags.posts.load', $tag) }}">

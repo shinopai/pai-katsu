@@ -1,17 +1,15 @@
 <template>
-    <object>
-        <button
-            class="post-card__like"
-            :class="{ 'is-liked': liked }"
-            @click="toggleLike"
-            :disabled="loading"
-        >
-            <span class="post-card__like-count">{{ count }}</span>
-        </button>
-    </object>
+    <button
+        class="post-card__like"
+        :class="{ 'is-liked': liked }"
+        @click="toggleLike"
+        :disabled="loading"
+    >
+        <span class="post-card__like-count">{{ count }}</span>
+    </button>
 </template>
 
-<script setup>
+<!-- <script setup>
 import { ref } from "vue";
 import axios from "axios";
 
@@ -61,6 +59,42 @@ const toggleLike = async (e) => {
         liked.value = prevLiked;
         count.value += liked.value ? 1 : -1;
         console.error(error);
+    } finally {
+        loading.value = false;
+    }
+};
+</script> -->
+
+<script setup>
+import { ref } from "vue";
+import axios from "axios";
+
+const props = defineProps({
+    postId: Number,
+    count: [Number, String],
+    liked: [Boolean, String],
+});
+
+const count = ref(Number(props.count));
+const liked = ref(props.liked === true || props.liked === "true");
+const loading = ref(false);
+
+const toggleLike = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (loading.value) return;
+    loading.value = true;
+
+    const prevLiked = liked.value;
+    liked.value = !prevLiked;
+    count.value += liked.value ? 1 : -1;
+
+    try {
+        await axios.post(`/api/posts/${props.postId}/like`);
+    } catch {
+        liked.value = prevLiked;
+        count.value += liked.value ? 1 : -1;
     } finally {
         loading.value = false;
     }

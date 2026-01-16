@@ -37,7 +37,7 @@
   @endif
 
   {{-- メインコンテンツ --}}
-  <main class="main" id="app">
+  <main class="main" id="">
     @yield('content')
   </main>
 </body>

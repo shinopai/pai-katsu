@@ -46,6 +46,7 @@ export function initInfiniteScroll() {
 
                 // 新しい投稿 + 新しい trigger を追加
                 container.insertAdjacentHTML("beforeend", html);
+                initLikeButtons(container);
             } catch (e) {
                 console.error(e);
             } finally {
@@ -58,4 +59,37 @@ export function initInfiniteScroll() {
     };
 
     observe();
+}
+
+// いいねボタン初期化
+function initLikeButtons(root = document) {
+    root.querySelectorAll(".post-card__like").forEach((btn) => {
+        if (btn.dataset.initialized) return;
+
+        btn.dataset.initialized = "true";
+        btn.addEventListener("click", handleLike);
+    });
+}
+
+// いいねボタン処理
+function handleLike(event) {
+    const button = event.currentTarget;
+    const postId = button.dataset.postId;
+
+    fetch(`/posts/${postId}/like`, {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                .content,
+            Accept: "application/json",
+        },
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            button.classList.toggle("is-liked", data.liked);
+            button.querySelector(".like-count").textContent = data.like_count;
+        })
+        .catch((err) => {
+            console.error("Like failed", err);
+        });
 }

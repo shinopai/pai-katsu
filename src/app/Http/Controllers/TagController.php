@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Tag;
 use App\Services\AchievementWakeupService;
+use Carbon\Carbon;
 
 class TagController extends Controller
 {
@@ -27,7 +28,13 @@ class TagController extends Controller
         // 全ユーザーの早起き達成回数取得
         $monthlyCounts = $service->getMonthlyAchievementCountsAll($posts);
 
-        return view('tags.show', compact('mainTags', 'tag', 'posts', 'monthlyCounts'));
+        // 月間早起き達成回数ランキング取得
+        $monthlyRanking = $service->getMonthlyRankingWithRank();
+
+        // 現在の月を取得
+        $currentMonth = Carbon::now()->month;
+
+        return view('tags.show', compact('mainTags', 'tag', 'posts', 'monthlyCounts', 'monthlyRanking', 'currentMonth'));
     }
 
     public function load(Tag $tag)

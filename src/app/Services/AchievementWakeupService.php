@@ -28,4 +28,54 @@ class AchievementWakeupService
             ->groupBy('user_id')
             ->pluck('count', 'user_id');
     }
+
+    // 月間早起き達成回数ランキングを取得
+    public function getMonthlyRankingWithRank()
+    {
+        $rows = AchievementWakeup::whereBetween(
+            'achieved_date',
+            [now()->startOfMonth()->toDateString(), now()->endOfMonth()->toDateString()]
+        )
+            ->selectRaw('
+                user_id,
+                COUNT(*) as achievement_count,
+                MAX(achieved_date) as latest_achieved_date,
+                MAX(id) as latest_id
+            ')
+            ->groupBy('user_id')
+            ->orderByDesc('achievement_count')
+            ->orderByDesc('latest_achieved_date')
+            ->orderByDesc('latest_id')
+            ->with('user')
+            ->get();
+
+        return $this->addRanks($rows);
+    }
+
+    private function addRanks($rows)
+    {
+        $ranked = [];
+        $currentRank = 0;
+        $prevCount = null;
+        $prevDate = null;
+
+        foreach ($rows as $index => $row) {
+            if (
+                $row->achievement_count !== $prevCount ||
+                $row->latest_achieved_date !== $prevDate
+            ) {
+                // 同率じゃなければ順位更新
+                $currentRank = $index + 1;
+            }
+
+            $row->rank = $currentRank;
+
+            $prevCount = $row->achievement_count;
+            $prevDate  = $row->latest_achieved_date;
+
+            $ranked[] = $row;
+        }
+
+        return collect($ranked);
+    }
 }
