@@ -130,6 +130,52 @@
         margin-top: 7px;
     }
 }
+.top__sidebar-ranking-rank {
+    width: 1.5em;
+    color: #fff;
+    height: 1.5em;
+    border-radius: 100vh;
+    @include m.centering;
+    &.ranking-1 {
+        background: linear-gradient(
+            to bottom,
+            #fce38a 0%,
+            #f9d423 50%,
+            #f2a900 50%,
+            #e89e00 100%
+        );
+    }
+    &.ranking-2 {
+        background: linear-gradient(
+            to bottom,
+            #f2f5f6 0%,
+            #dde4e6 50%,
+            #c3cfd4 50%,
+            #adb9bd 100%
+        );
+    }
+    &.ranking-3 {
+        background: linear-gradient(
+            to bottom,
+            #f98f7a 0%,
+            #eb5c3d 50%,
+            #e33500 50%,
+            #c32d00 100%
+        );
+    }
+    &.ranking-4,
+    &.ranking-5 {
+        color: rgba(255, 255, 255, 0.9);
+        background: linear-gradient(
+            to bottom,
+            #9e9e9e 0%,
+            /* 上の一番明るい部分 */ #757575 50%,
+            /* 境界線の上側 */ #4a4a4a 50%,
+            /* 境界線の下側（ここを暗くして差をつける） */ #333333 100%
+                /* 最下部 */
+        );
+    }
+}
 .top__sidebar-ranking-name {
     color: v.$color-blue;
 }
