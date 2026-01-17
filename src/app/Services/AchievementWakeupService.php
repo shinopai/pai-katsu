@@ -47,6 +47,7 @@ class AchievementWakeupService
             ->orderByDesc('latest_achieved_date')
             ->orderByDesc('latest_id')
             ->with('user')
+            ->limit(5)
             ->get();
 
         return $this->addRanks($rows);

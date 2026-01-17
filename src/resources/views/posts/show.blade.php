@@ -29,7 +29,7 @@
 
       {{-- コメント一覧 --}}
       <section class="post-show__comments">
-        @if ($post->comments()->count() > 0)
+        @if ($post->comments_count > 0)
           <ul class="post-show__comment-list">
             @foreach ($post->comments as $comment)
               <li class="post-show__comment">

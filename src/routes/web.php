@@ -6,6 +6,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Api\LikeController;
+use App\Http\Controllers\FollowController;
 
 //--- 投稿 ---------------------------------------------
 Route::middleware(['auth'])->group(function () {
@@ -40,3 +41,8 @@ Route::prefix('api')->group(function () {
         ->middleware('auth')
         ->name('posts.like');
 });
+
+//--- フォロー -----------------------------------------------------
+Route::post('/users/{user}/follow', [FollowController::class, 'toggle'])
+    ->name('follows.toggle')
+    ->middleware('auth');

@@ -108,6 +108,8 @@ class PostController extends Controller
     {
         $count = $service->getMonthlyAchievementCount($post->user->id, now());
 
+        $post->loadCount('comments');
+
         return view('posts.show', compact('post', 'count'));
     }
 

@@ -21,6 +21,14 @@ class UserController extends Controller
         // 全ユーザーの早起き達成回数取得
         $monthlyCounts = $service->getMonthlyAchievementCountsAll(Post::orderByDesc('id')->get());
 
-        return view('users.show', compact('user', 'currentMonth', 'count', 'monthlyCounts'));
+        // ユーザー設定起床時間の3時間前を取得
+        $wakeupTime = Carbon::parse($user->wakeup_time);
+
+        $wakeupFromTime = $wakeupTime->copy()->subHours(3);
+
+        // フォロー、フォロワー情報を紐づけ
+        $user->loadCount('followings', 'followers');
+
+        return view('users.show', compact('user', 'currentMonth', 'count', 'monthlyCounts', 'wakeupFromTime'));
     }
 }

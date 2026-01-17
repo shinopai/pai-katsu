@@ -99,29 +99,23 @@
 }
 .user-show__follow-button {
     width: 90px;
+    height: 100%;
     border-radius: 4px;
-    background-color: v.$color-blue;
-    color: #fff;
     @include m.font-set(12, 600);
-    padding-left: f.em(15, 12);
     border: none;
     cursor: pointer;
     transition: opacity 0.2s ease;
-    position: relative;
-    // font awesome アイコン
-    &::before {
-        content: "\f007";
-        font-family: "Font Awesome 7 Free";
-        font-weight: 900;
-        position: absolute;
-        left: 0.8em;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 0.9em;
-    }
     &:hover {
         opacity: 0.9;
     }
+}
+.user-show__follow-button--following {
+    background-color: #fff;
+    border: 1px solid #f5f5f5;
+}
+.user-show__follow-button--follow {
+    background-color: v.$color-blue;
+    color: #fff;
 }
 .user-show__stats {
     margin-top: 20px;

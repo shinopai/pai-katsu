@@ -102,4 +102,33 @@ class User extends Authenticatable
             'achievement_wakeups'
         );
     }
+
+    // 自分がフォローしているユーザー
+    public function followings()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'follows',
+            'follower_id',
+            'following_id'
+        )->withTimestamps();
+    }
+
+    // 自分をフォローしているユーザー
+    public function followers()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'follows',
+            'following_id',
+            'follower_id'
+        )->withTimestamps();
+    }
+
+    public function isFollowing(int $userId): bool
+    {
+        return $this->followings()
+            ->where('users.id', $userId)
+            ->exists();
+    }
 }

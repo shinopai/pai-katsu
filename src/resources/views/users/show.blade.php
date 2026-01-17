@@ -28,19 +28,34 @@
                     <span class="user-show__achievement-days">日目</span>
                   </span>
                 </div>
-                <button type="button" class="user-show__follow-button">
-                  フォロー中
-                </button>
+                {{-- フォローボタン --}}
+                @auth
+                  @if (Auth::user()->id !== $user->id)
+                    <form method="POST" action="{{ route('follows.toggle', $user) }}">
+                      @csrf
+
+                      @if (Auth::user()->isFollowing($user->id))
+                        <button type="submit" class="user-show__follow-button user-show__follow-button--following">
+                          フォロー中
+                        </button>
+                      @else
+                        <button type="submit" class="user-show__follow-button user-show__follow-button--follow">
+                          フォローする
+                        </button>
+                      @endif
+                    </form>
+                  @endif
+                @endauth
               </div>
             </div>
             <small class="user-show__note">
-              (04:00～{{ $user->wakeup_time->format('H:i') }}に投稿できると早起き成功です)
+              ({{ $wakeupFromTime->format('H:i') }}～{{ $user->wakeup_time->format('H:i') }}に投稿できると早起き成功です)
             </small>
           </div>
         </div>
         <div class="user-show__stats flex">
-          <span class="user-show__follow-count">0フォロー</span>
-          <span class="user-show__follower-count">0フォロワー</span>
+          <span class="user-show__follow-count">{{ $user->followings_count }}フォロー</span>
+          <span class="user-show__follower-count">{{ $user->followers_count }}フォロワー</span>
         </div>
       </div>
 
