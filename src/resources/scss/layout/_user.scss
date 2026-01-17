@@ -1,7 +1,4 @@
-@use "../modules/mixins" as m;
-@use "../modules/placeholders";
-@use "../modules/variables" as v;
-@use "../modules/functions" as f;
+@use "../base" as mod;
 
 /*=====================
   ユーザー詳細ページ
@@ -30,13 +27,13 @@
     flex-grow: 1;
 }
 .user-show__name {
-    @include m.font-set(11, 600);
+    @include mod.font-set(11, 600);
 }
 .user-show__wakeup-time {
-    @include m.font-set(12, 600);
-    color: v.$color-blue;
-    padding-left: f.em(14, 12);
-    margin-top: f.em(7, 12);
+    @include mod.font-set(12, 600);
+    color: mod.$color-blue;
+    padding-left: mod.em(14, 12);
+    margin-top: mod.em(7, 12);
     position: relative;
     &::before {
         content: "\f017"; /* clock */
@@ -46,13 +43,13 @@
         left: 0;
         top: 0;
         font-size: 0.9em;
-        color: v.$color-blue;
+        color: mod.$color-blue;
     }
 }
 .user-show__note {
-    @include m.font-set(10);
+    @include mod.font-set(10);
     display: block;
-    margin-top: f.em(8, 10);
+    margin-top: mod.em(8, 10);
     color: #6b7280;
 }
 .user-show__meta {
@@ -61,14 +58,14 @@
     gap: 15px;
 }
 .user-show__calendar {
-    @include m.font-set(10, 600);
+    @include mod.font-set(10, 600);
     background: url("../../../public/images/bg_calendar_01.webp") no-repeat;
     background-size: cover;
     background-position: center;
-    @include m.centering;
+    @include mod.centering;
     width: 40px;
     gap: 3px;
-    padding-top: f.em(10, 10);
+    padding-top: mod.em(10, 10);
 }
 .user-show__calendar-number {
     font-size: 1.4em;
@@ -77,31 +74,31 @@
 }
 .user-show__achievement {
     @extend %bg-red;
-    @include m.centering;
+    @include mod.centering;
     flex-direction: column;
     width: 90px;
     border-radius: 4px;
 }
 .user-show__achievement-label {
-    @include m.font-set(11, 600);
-    color: #fff;
+    @include mod.font-set(11, 600);
+    color: mod.$color-white;
 }
 .user-show__achievement-value {
-    @include m.font-set(11, 600);
+    @include mod.font-set(11, 600);
     line-height: 1;
 }
 .user-show__achievement-number {
     font-size: 1.4em;
-    color: #fff;
+    color: mod.$color-white;
 }
 .user-show__achievement-days {
-    color: #fff;
+    color: mod.$color-white;
 }
 .user-show__follow-button {
     width: 90px;
     height: 100%;
     border-radius: 4px;
-    @include m.font-set(12, 600);
+    @include mod.font-set(12, 600);
     border: none;
     cursor: pointer;
     transition: opacity 0.2s ease;
@@ -110,20 +107,19 @@
     }
 }
 .user-show__follow-button--following {
-    background-color: #fff;
+    background-color: mod.$color-white;
     border: 1px solid #f5f5f5;
 }
 .user-show__follow-button--follow {
-    background-color: v.$color-blue;
-    color: #fff;
+    background-color: mod.$color-blue;
+    color: mod.$color-white;
 }
 .user-show__stats {
     margin-top: 20px;
     gap: 20px;
 }
-.user-show__follow-count,
-.user-show__follower-count {
-    @include m.font-set(12);
+.user-show__count {
+    @include mod.font-set(12);
     color: #6b7280;
 }
 .user-show__posts {
@@ -133,17 +129,19 @@
     align-items: center;
 }
 .user-show__tab {
-    @include m.font-set(14, 600);
+    @include mod.font-set(14, 600);
     cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
     width: 50%;
     color: #6b7280;
     min-height: 35px;
     border-radius: 4px 4px 0 0;
-    @include m.centering;
+    @include mod.centering;
     &.active {
         @extend %bg-red;
-        color: #fff;
+        color: mod.$color-white;
     }
 }
 .user-show__data {

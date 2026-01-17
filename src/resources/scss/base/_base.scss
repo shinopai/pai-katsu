@@ -41,7 +41,7 @@
 .flash-message--success {
     border-color: #5cb85c;
     background-color: #9dd49d;
-    color: #fff;
+    color: v.$color-white;
 }
 
 /* validation error message */
@@ -62,7 +62,7 @@
 }
 .wakeup-popup {
     position: relative;
-    background-color: #fff;
+    background-color: v.$color-white;
     width: min(100%, 420px);
     padding: 24px 0;
     border-radius: 3px;
@@ -110,7 +110,7 @@
 }
 .wakeup-popup__badge {
     @extend %bg-red;
-    color: #fff;
+    color: v.$color-white;
     padding: 4px 10px;
     border-radius: 6px;
     @include m.font-set(13, bold);

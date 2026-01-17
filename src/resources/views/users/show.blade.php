@@ -54,8 +54,8 @@
           </div>
         </div>
         <div class="user-show__stats flex">
-          <span class="user-show__follow-count">{{ $user->followings_count }}フォロー</span>
-          <span class="user-show__follower-count">{{ $user->followers_count }}フォロワー</span>
+          <span class="user-show__count">{{ $user->followings_count }}フォロー</span>
+          <span class="user-show__count">{{ $user->followers_count }}フォロワー</span>
         </div>
       </div>
 

@@ -33,7 +33,8 @@
     <ul class="top__sidebar-ranking-list">
       @foreach ($monthlyRanking as $ranking)
         <li class="top__sidebar-ranking-item">
-          <span class="top__sidebar-ranking-rank ranking-{{ $ranking->rank }}">{{ $ranking->rank }}</span>
+          <span
+            class="top__sidebar-ranking-rank top__sidebar-ranking-rank--{{ $ranking->rank }}">{{ $ranking->rank }}</span>
           <a href="{{ route('users.show', $ranking->user->id) }}"
             class="top__sidebar-ranking-name">{{ $ranking->user->name }}さん</a>
           <span class="top__sidebar-ranking-count">

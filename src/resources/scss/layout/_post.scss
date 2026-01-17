@@ -1,18 +1,15 @@
-@use "../modules/mixins" as m;
-@use "../modules/placeholders";
-@use "../modules/variables" as v;
-@use "../modules/functions" as f;
+@use "../base" as mod;
 
 /*=====================
   基本投稿カード
 =====================*/
 
 .post-card {
-    background-color: #fff;
+    background-color: mod.$color-white;
     border-radius: 3px;
     padding: 16px 16px 0 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    @include m.font-set(13);
+    @include mod.font-set(13);
     &:hover {
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
     }
@@ -37,16 +34,16 @@
     border-radius: 100vh;
 }
 .post-card__user-name {
-    @include m.font-set(11, bold);
+    @include mod.font-set(11, bold);
 }
 .post-card__date {
-    @include m.font-set(12);
+    @include mod.font-set(12);
     margin-left: 1em;
     color: #888;
 }
 .post-card__goal {
-    @include m.font-set(12);
-    padding-left: f.em(14, 12);
+    @include mod.font-set(12);
+    padding-left: mod.em(14, 12);
     position: relative;
     &::before {
         content: "\f017"; /* clock */
@@ -56,16 +53,16 @@
         left: 0;
         top: 0;
         font-size: 0.9em;
-        color: v.$color-blue;
+        color: mod.$color-blue;
     }
 }
 .post-card__goal-text {
-    color: v.$color-blue;
+    color: mod.$color-blue;
 }
 .post-card__achievement {
     padding: 4px 20px;
     border-radius: 3px;
-    color: #fff;
+    color: mod.$color-white;
     text-align: center;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     @extend %bg-red;
@@ -73,20 +70,20 @@
 }
 .post-card__achievement-label {
     display: block;
-    @include m.font-set(10);
-    color: #fff;
+    @include mod.font-set(10);
+    color: mod.$color-white;
 }
 
 .post-card__achievement-days {
-    @include m.font-set(11);
-    color: #fff;
+    @include mod.font-set(11);
+    color: mod.$color-white;
     display: block;
 }
 
 .post-card__achievement-number {
     font-size: 1.2em;
     font-weight: bold;
-    color: #fff;
+    color: mod.$color-white;
 }
 .post-card__tags {
     display: flex;
@@ -98,7 +95,7 @@
     border: 1px solid #4db6ac;
     border-radius: 3px;
     color: #4db6ac;
-    @include m.font-set(11, 600) {
+    @include mod.font-set(11, 600) {
         line-height: 1.2;
     }
 }
@@ -106,11 +103,11 @@
     padding: 10px 0;
 }
 .post-card__text {
-    @include m.font-set(14);
+    @include mod.font-set(14);
     white-space: pre-line;
 }
 .post-card__footer {
-    @include m.font-set(12);
+    @include mod.font-set(12);
     justify-content: flex-end;
     gap: 16px;
     position: relative;
@@ -122,7 +119,7 @@
         left: -16px;
         right: -16px;
         height: 1px;
-        background-color: v.$color-gray;
+        background-color: mod.$color-gray;
     }
 }
 .post-card__comment {
@@ -181,7 +178,7 @@
 
 /* タイトル */
 .post-create__heading {
-    @include m.font-set(18, 600);
+    @include mod.font-set(18, 600);
     text-align: center;
 }
 
@@ -197,7 +194,7 @@
 }
 
 .post-create__label {
-    @include m.font-set(14, 600);
+    @include mod.font-set(14, 600);
     display: inline-block;
     margin-bottom: 0.2em;
 }
@@ -205,10 +202,12 @@
 .post-create__input,
 .post-create__textarea {
     width: 100%;
-    @include m.font-set(14);
+    @include mod.font-set(14);
     border-radius: 8px;
     border: 1px solid #ccc;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
     &:focus {
         outline: none;
         border-color: #4f8cff;
@@ -233,16 +232,19 @@
 /* 送信ボタン */
 .post-create__submit {
     width: 100%;
-    @include m.font-set(16, 600);
+    @include mod.font-set(16, 600);
     padding: 0.9em;
     margin-top: 1em;
     letter-spacing: 0.05em;
     border-radius: 10px;
     border: none;
-    color: #fff;
+    color: mod.$color-white;
     background-color: #4f8cff;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s, box-shadow 0.1s;
+    transition:
+        background-color 0.2s,
+        transform 0.1s,
+        box-shadow 0.1s;
     &:hover {
         background-color: #3b78e0;
     }
@@ -274,7 +276,7 @@
 .post-show__comment {
     padding: 12px 14px;
     box-shadow: 0 2px 1px rgba(0, 0, 0, 0.08);
-    border-bottom: 1px solid v.$color-gray;
+    border-bottom: 1px solid mod.$color-gray;
 }
 
 .post-show__comment-header {
@@ -294,12 +296,12 @@
 }
 
 .post-show__comment-username {
-    @include m.font-set(13, 600);
+    @include mod.font-set(13, 600);
     line-height: 1.2;
 }
 
 .post-show__comment-time {
-    @include m.font-set(11);
+    @include mod.font-set(11);
     color: #888;
 }
 
@@ -314,9 +316,9 @@
     word-break: break-word;
 }
 .post-show__no-comments {
-    @include m.font-set(14);
+    @include mod.font-set(14);
     color: #666;
-    margin-bottom: f.em(15, 14);
+    margin-bottom: mod.em(15, 14);
 }
 
 // コメントフォーム
@@ -338,17 +340,17 @@
 }
 
 .post-show__comment-form-username {
-    @include m.font-set(13, 600);
+    @include mod.font-set(13, 600);
 }
 
 .post-show__comment-textarea {
     width: 100%;
     min-height: 80px;
-    @include m.font-set(14) {
+    @include mod.font-set(14) {
         line-height: 1.6;
     }
-    padding: f.em(10, 14) f.em(12, 14);
-    margin-top: f.em(15, 14);
+    padding: mod.em(10, 14) mod.em(12, 14);
+    margin-top: mod.em(15, 14);
     border: 1px solid #dcdfe6;
     border-radius: 4px;
     resize: none;
@@ -360,21 +362,21 @@
 }
 
 .post-show__comment-limit {
-    @include m.font-set(12);
-    color: v.$color-red;
+    @include mod.font-set(12);
+    color: mod.$color-red;
     display: block;
     text-align: right;
     line-height: 0.7;
 }
 
 .post-show__comment-submit {
-    @include m.font-set(13, 600);
-    padding: f.em(6, 13) f.em(16, 13);
-    margin: f.em(25, 13) 0 0 auto;
+    @include mod.font-set(13, 600);
+    padding: mod.em(6, 13) mod.em(16, 13);
+    margin: mod.em(25, 13) 0 0 auto;
     border-radius: 4px;
     border: none;
     @extend %bg-red;
-    color: #fff;
+    color: mod.$color-white;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
     display: block;

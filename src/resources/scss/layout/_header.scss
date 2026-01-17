@@ -1,5 +1,4 @@
-@use "../modules/mixins" as m;
-@use "../modules/placeholders";
+@use "../base" as mod;
 
 /* ヘッダー */
 .header {
@@ -12,10 +11,10 @@
     position: relative;
 }
 .header__title {
-    @include m.font-set(18) {
+    @include mod.font-set(18) {
         font-weight: 600;
     }
-    color: #fff;
+    color: mod.$color-white;
     // font awesome icon
     &::before {
         font-family: "Font Awesome 7 Free";
@@ -27,9 +26,9 @@
     column-gap: 20px;
 }
 .header__nav-link {
-    @include m.font-set(14) {
+    @include mod.font-set(14) {
     }
-    color: #fff;
+    color: mod.$color-white;
     // font awesome icon
     &::before {
         font-family: "Font Awesome 7 Free";
@@ -73,7 +72,7 @@
     position: absolute;
     right: 0;
     bottom: -60px;
-    background-color: #fff;
+    background-color: mod.$color-white;
     padding: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     border-radius: 3px;
@@ -83,13 +82,13 @@
     }
 }
 .header__dropdown-item {
-    @include m.font-set(14);
+    @include mod.font-set(14);
     &:hover {
         background-color: #f0f0f0;
     }
 }
 .header__dropdown-button {
-    @include m.font-set(14);
+    @include mod.font-set(14);
     background-color: transparent;
     border: none;
     cursor: pointer;
