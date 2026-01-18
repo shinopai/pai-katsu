@@ -32,6 +32,7 @@ RUN mkdir -p storage bootstrap/cache \
     && chown -R www-data:www-data /var/www \
     && chmod -R 775 storage bootstrap/cache
 
+RUN composer update
 RUN composer install --no-dev --optimize-autoloader
 RUN npm install && npm run build
 
