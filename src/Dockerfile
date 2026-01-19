@@ -1,7 +1,6 @@
 FROM php:8.3-fpm
 
 RUN apt-get update && apt-get install -y \
-    nginx \
     git \
     curl \
     zip \
@@ -11,35 +10,42 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libzip-dev \
     libicu-dev \
-    libpq-dev \
     nodejs \
     npm \
     && docker-php-ext-configure intl \
     && docker-php-ext-install \
-        pdo_pgsql \
+        pdo_mysql \
         mbstring \
         exif \
         pcntl \
         bcmath \
         gd \
         zip \
-        intl \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+        intl
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
-COPY src .
+
+# PHP依存関係
+COPY src/composer.json src/composer.lock ./
 RUN composer install --no-dev --optimize-autoloader
 
-RUN chown -R www-data:www-data /var/www
+# Node依存関係（ここ重要）
+COPY src/package.json src/package-lock.json ./
+RUN npm install
 
-# nginx config
-COPY docker/nginx.conf /etc/nginx/nginx.conf
+# アプリ本体
+COPY src .
+
+# Vite build（manifestを確実に作る）
+RUN npm run build
+
+RUN mkdir -p storage bootstrap/cache \
+    && chown -R www-data:www-data /var/www \
+    && chmod -R 775 storage bootstrap/cache
 
 EXPOSE 10000
 
 CMD php artisan migrate --force && \
-    php-fpm -D && \
-    nginx -g "daemon off;"
+    php artisan serve --host=0.0.0.0 --port=10000
