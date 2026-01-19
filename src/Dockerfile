@@ -29,7 +29,10 @@ WORKDIR /var/www
 
 # PHP依存関係
 COPY src/composer.json src/composer.lock ./
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install \
+    --no-dev \
+    --optimize-autoloader \
+    --no-scripts
 
 # Node依存関係（ここ重要）
 COPY src/package.json src/package-lock.json ./
@@ -47,5 +50,7 @@ RUN mkdir -p storage bootstrap/cache \
 
 EXPOSE 10000
 
-CMD php artisan migrate --force && \
+CMD php artisan key:generate --force && \
+    php artisan migrate --force && \
+    php artisan optimize && \
     php artisan serve --host=0.0.0.0 --port=10000
