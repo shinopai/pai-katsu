@@ -27,20 +27,16 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
-# PHP依存関係
-COPY src/composer.json src/composer.lock ./
-RUN composer install --no-dev --optimize-autoloader
-
-# Node依存関係
-COPY src/package.json src/package-lock.json ./
-RUN npm install
-
-# アプリ本体
+# ① Laravel本体を先にコピー（artisanを含む）
 COPY src .
 
-# Vite build
-RUN npm run build
+# ② composer install（artisanが存在するのでOK）
+RUN composer install --no-dev --optimize-autoloader
 
+# ③ Node依存関係 & Vite build
+RUN npm install && npm run build
+
+# ④ 権限
 RUN mkdir -p storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
