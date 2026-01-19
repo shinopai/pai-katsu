@@ -10,11 +10,13 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libzip-dev \
     libicu-dev \
+    libpq-dev \
     nodejs \
     npm \
     && docker-php-ext-configure intl \
     && docker-php-ext-install \
-        pdo_mysql \
+        pdo_pgsql \
+        pgsql \
         mbstring \
         exif \
         pcntl \
@@ -27,16 +29,15 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
-# ① Laravel本体を先にコピー（artisanを含む）
+# Laravel本体
 COPY src .
 
-# ② composer install（artisanが存在するのでOK）
+# PHP依存関係
 RUN composer install --no-dev --optimize-autoloader
 
-# ③ Node依存関係 & Vite build
+# フロントビルド
 RUN npm install && npm run build
 
-# ④ 権限
 RUN mkdir -p storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
