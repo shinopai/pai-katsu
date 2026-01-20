@@ -34,10 +34,17 @@
             @foreach ($post->comments as $comment)
               <li class="post-show__comment">
                 <div class="post-show__comment-header flex">
-                  <img
-                    src="{{ $comment->user->icon ? asset('storage/' . $comment->user->icon) : asset('images/icon_user_01_dummy.webp') }}"
-                    alt="{{ $comment->user->icon }}" class="post-show__comment-icon">
-
+                  {{-- 開発環境 --}}
+                  @env('local')
+                    <img
+                      src="{{ $comment->user->icon ? asset('storage/' . $comment->user->icon) : asset('images/icon_user_01_dummy.webp') }}"
+                      alt="{{ $comment->user->icon }}" class="post-show__comment-icon">
+                  @endenv
+                  {{-- 本番環境 --}}
+                  @env('production')
+                    <img src="{{ $comment->user->icon ? $comment->user->icon : asset('images/icon_user_01_dummy.webp') }}"
+                      alt="{{ $comment->user->icon }}" class="post-show__comment-icon">
+                  @endenv
                   <div class="post-show__comment-meta flex">
                     <p class="post-show__comment-username">
                       {{ $comment->user->name }}

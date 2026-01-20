@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -130,5 +131,13 @@ class User extends Authenticatable
         return $this->followings()
             ->where('users.id', $userId)
             ->exists();
+    }
+
+    // S3のURLを返すアクセサ
+    public function getIconUrlAttribute()
+    {
+        return $this->icon
+            ? Storage::disk('s3')->url($this->icon)
+            : asset('images/icon_user_01_dummy.webp');
     }
 }

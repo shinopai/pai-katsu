@@ -4,9 +4,17 @@
     <header class="post-card__header flex">
       <div class="post-card__user flex">
         <div class="post-card__user-inner flex">
-          <img
-            src="{{ $post->user->icon ? asset('storage/' . $post->user->icon) : asset('images/icon_user_01_dummy.webp') }}"
-            alt="$post->user->name" class="post-card__user-icon">
+          {{-- 開発環境 --}}
+          @env('local')
+            <img
+              src="{{ $post->user->icon ? asset('storage/' . $post->user->icon) : asset('images/icon_user_01_dummy.webp') }}"
+              alt="$post->user->name" class="post-card__user-icon">
+          @endenv
+          {{-- 本番環境 --}}
+          @env('production')
+            <img src="{{ $post->user->icon ? $post->user->icon : asset('images/icon_user_01_dummy.webp') }}"
+              alt="$post->user->name" class="post-card__user-icon">
+          @endenv
           <div class="post-card__user-info">
             <span class="post-card__user-name">{{ $post->user->name }}</span>
             <time class="post-card__date">{{ $post->created_at->format('Y/m/d H:i') }}</time>

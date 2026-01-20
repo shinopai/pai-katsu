@@ -4,6 +4,7 @@ namespace App\Actions\Fortify;
 
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -39,10 +40,24 @@ class CreateNewUser implements CreatesNewUsers
             ],
         ])->validate();
 
-        $iconPath = null;
+        // 開発環境での処理
+        if (App::environment('local')) {
 
-        if (isset($input['icon']) && $input['icon'] instanceof UploadedFile) {
-            $iconPath = $input['icon']->store('icons', 'public');
+            $iconPath = null;
+
+            if (isset($input['icon']) && $input['icon'] instanceof UploadedFile) {
+                $iconPath = $input['icon']->store('icons', 'public');
+            }
+        }
+
+        // 本番環境での処理
+        if (App::environment('production')) {
+
+            $iconPath = null;
+
+            if (isset($input['icon']) && $input['icon'] instanceof UploadedFile) {
+                $iconPath = $input['icon']->store('icons', 's3');
+            }
         }
 
         return User::create([
