@@ -3,9 +3,11 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use Illuminate\Filesystem\AwsS3V3Adapter;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -52,11 +54,16 @@ class CreateNewUser implements CreatesNewUsers
 
         // 本番環境での処理
         if (App::environment('production')) {
-
-            $iconPath = null;
-
             if (isset($input['icon']) && $input['icon'] instanceof UploadedFile) {
-                $iconPath = $input['icon']->store('icons', 's3');
+                $icon = $input['icon'];
+                $fileName = time() . '_' . $icon->getClientOriginalName();
+
+                $s3 = Storage::disk('s3');
+                $result = $s3->putFileAs('', $icon, $fileName);
+
+                if ($result) {
+                    $iconPath = $s3->url($result);
+                }
             }
         }
 
