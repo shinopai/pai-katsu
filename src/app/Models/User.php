@@ -133,11 +133,9 @@ class User extends Authenticatable
             ->exists();
     }
 
-    // S3のURLを返すアクセサ
-    public function getIconUrlAttribute()
+    // アイコン画像をアップロード済か
+    public function hasUploadedIcon(): bool
     {
-        return $this->icon
-            ? Storage::disk('s3')->url($this->icon)
-            : asset('images/icon_user_01_dummy.webp');
+        return !empty($this->icon);
     }
 }

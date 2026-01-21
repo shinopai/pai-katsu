@@ -4,26 +4,24 @@
     <header class="post-card__header flex">
       <div class="post-card__user flex">
         <div class="post-card__user-inner flex">
-          {{-- 開発環境 --}}
-          @env('local')
-            <img
-              src="{{ $post->user->icon ? asset('storage/' . $post->user->icon) : asset('images/icon_user_01_dummy.webp') }}"
-              alt="$post->user->name" class="post-card__user-icon">
-          @endenv
-          {{-- 本番環境 --}}
-          @env('production')
+          @if ($post->user->hasUploadedIcon())
             <img src="{{ $post->user->icon ? $post->user->icon : asset('images/icon_user_01_dummy.webp') }}"
               alt="$post->user->name" class="post-card__user-icon">
-          @endenv
-          <div class="post-card__user-info">
-            <span class="post-card__user-name">{{ $post->user->name }}</span>
-            <time class="post-card__date">{{ $post->created_at->format('Y/m/d H:i') }}</time>
-            <!-- 目標時間 -->
-            <div class="post-card__goal">
-              <span class="post-card__goal-text">目標起床時間：{{ $post->user->wakeup_time->format('H:i') }}</span>
-            </div>
+            <div class="post-card__user-info">
+            @else
+              <img
+                src="{{ $post->user->icon ? asset('storage/' . $post->user->icon) : asset('images/icon_user_01_dummy.webp') }}"
+                alt="$post->user->name" class="post-card__user-icon">
+              <div class="post-card__user-info">
+          @endif
+          <span class="post-card__user-name">{{ $post->user->name }}</span>
+          <time class="post-card__date">{{ $post->created_at->format('Y/m/d H:i') }}</time>
+          <!-- 目標時間 -->
+          <div class="post-card__goal">
+            <span class="post-card__goal-text">目標起床時間：{{ $post->user->wakeup_time->format('H:i') }}</span>
           </div>
         </div>
+      </div>
       </div>
 
       @if (!empty($monthlyCounts[$post->user->id]))

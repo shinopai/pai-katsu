@@ -3,7 +3,6 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
-use Illuminate\Filesystem\AwsS3V3Adapter;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
@@ -42,28 +41,22 @@ class CreateNewUser implements CreatesNewUsers
             ],
         ])->validate();
 
-        // 開発環境での処理
-        if (App::environment('local')) {
+        // アイコンをS3に保存
+        if (isset($input['icon']) && $input['icon'] instanceof UploadedFile) {
+            $icon = $input['icon'];
+            $fileName = time() . '_' . $icon->getClientOriginalName();
 
-            $iconPath = null;
+            $s3 = Storage::disk('s3');
 
-            if (isset($input['icon']) && $input['icon'] instanceof UploadedFile) {
-                $iconPath = $input['icon']->store('icons', 'public');
+            try {
+                $result = $s3->putFileAs('icons', $icon, $fileName);
+            } catch (\Throwable $e) {
+                logger()->error('エラーだよ:' . $e->getMessage());
+                throw $e;
             }
-        }
 
-        // 本番環境での処理
-        if (App::environment('production')) {
-            if (isset($input['icon']) && $input['icon'] instanceof UploadedFile) {
-                $icon = $input['icon'];
-                $fileName = time() . '_' . $icon->getClientOriginalName();
-
-                $s3 = Storage::disk('s3');
-                $result = $s3->putFileAs('', $icon, $fileName);
-
-                if ($result) {
-                    $iconPath = $s3->url($result);
-                }
+            if ($result) {
+                $iconPath = $s3->url($result);
             }
         }
 

@@ -5,17 +5,13 @@
     <div class="wrap">
       <div class="user-show__card">
         <div class="user-show__header flex">
-          {{-- 開発環境 --}}
-          @env('local')
-            <img class="user-show__icon"
-              src="{{ $user->icon ? asset('storage/' . $user->icon) : asset('images/icon_user_01_dummy.webp') }}"
-              alt="{{ $user->name }}">
-          @endenv
-          {{-- 本番環境 --}}
-          @env('production')
+          @if ($user->hasUploadedIcon())
             <img class="user-show__icon" src="{{ $user->icon ? $user->icon : asset('images/icon_user_01_dummy.webp') }}"
               alt="{{ $user->name }}">
-          @endenv
+          @else
+            <img class="user-show__icon" src="{{ $user->icon ? $user->icon : asset('images/icon_user_01_dummy.webp') }}"
+              alt="{{ $user->name }}">
+          @endif
           <div class="user-show__header-body">
             <div class="user-show__header-inner flex">
               <div class="user-show__profile">
